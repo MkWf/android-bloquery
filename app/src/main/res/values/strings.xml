@@ -1,0 +1,7 @@
+<resources>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="app_name">BloQuery</string>
+</resources>
