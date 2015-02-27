@@ -10,19 +10,30 @@ import java.util.List;
  */
 public class DataSource {
     private List<Question> questions;
+    private List<Question> answers;
 
     public DataSource() {
         questions = new ArrayList<Question>();
-        createFakeData();
+        createFakeQuestions();
+        createFakeAnswers();
     }
 
+    private void createFakeAnswers() {
+        for(int i=0; i<10; i++){
+            answers.add(new Question());
+        }
+    }
+
+    public List<Question> getAnswers() {
+        return answers;
+    }
     public List<Question> getQuestions() {
         return questions;
     }
 
-    void createFakeData() {
+    void createFakeQuestions() {
         for(int i=0; i<10; i++){
-            questions.add(new Question());
+            questions.add(new Question(i));
         }
     }
 }

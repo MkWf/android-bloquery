@@ -14,10 +14,14 @@ public class Question extends ParseObject {
     //BloQueryUser user;
     int rating;
 
-    public Question(){
-        question = "This is my question";
+    public Question(int i){
+        question = "This is my question " + i;
         //user = null;
         rating = 5;
+    }
+
+    public Question(){
+        question = "This is my answer";
     }
 
     //public BloQueryUser getUser(){return user;}
