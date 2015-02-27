@@ -17,7 +17,7 @@ import com.parse.models.Question;
 /**
  * Created by Mark on 2/26/2015.
  */
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder> {
+public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapter.ItemAdapterViewHolder> {
 
     @Override
     public ItemAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {

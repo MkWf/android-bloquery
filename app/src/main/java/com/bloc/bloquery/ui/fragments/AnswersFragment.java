@@ -16,15 +16,14 @@ import com.bloc.bloquery.adapters.QuestionItemAdapter;
 /**
  * Created by Mark on 2/27/2015.
  */
-public class QuestionsFragment extends Fragment {
-
-    QuestionItemAdapter questionItemAdapter;
+public class AnswersFragment extends Fragment {
+    QuestionItemAdapter itemAdapter;
     RecyclerView recyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        questionItemAdapter = new QuestionItemAdapter();
+        itemAdapter = new QuestionItemAdapter();
     }
 
     @Nullable
@@ -41,6 +40,6 @@ public class QuestionsFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(questionItemAdapter);
+        recyclerView.setAdapter(itemAdapter);
     }
 }
