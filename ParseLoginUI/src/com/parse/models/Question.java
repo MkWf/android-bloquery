@@ -11,22 +11,22 @@ import com.parse.ParseObject;
 public class Question extends ParseObject {
 
     String question;
-    BloQueryUser user;
+    //BloQueryUser user;
     int rating;
 
     public Question(){
-        question = "";
-        user = null;
-        rating = 0;
+        question = "This is my question";
+        //user = null;
+        rating = 5;
     }
 
-    public BloQueryUser getUser(){return user;}
+    //public BloQueryUser getUser(){return user;}
 
     public String getQuestion() {return question;}
 
     public int getRating() {return rating;}
 
-    public void setUser(BloQueryUser user){this.user = user;}
+    //public void setUser(BloQueryUser user){this.user = user;}
 
     public void setQuestion(String question) {this.question = question;}
 
