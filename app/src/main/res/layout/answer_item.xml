@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/answer_item_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
+
+    <ImageButton
+        android:id="@+id/answer_item_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/answer_item_answer"
+        android:src="@mipmap/user_default"
+        android:contentDescription="@string/user_icon"/>
+
+    <TextView
+        android:id="@+id/answer_item_votes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/answer_item_user"/>
+
+    <ImageButton
+        android:id="@+id/answer_item_more_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/more_options_menu"
+        android:layout_below="@id/answer_item_answer"
+        android:src="@mipmap/answer_item_more_option"/>
+
+    <ImageButton
+        android:id="@+id/answer_item_upvote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/answer_item_answer"
+        android:contentDescription="@string/upvote"
+        android:layout_toLeftOf="@id/answer_item_more_options"
+        android:src="@mipmap/answer_item_upvote"/>
+
+</RelativeLayout>
