@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.bloc.bloquery.R;
 import com.bloc.bloquery.adapters.QuestionItemAdapter;
@@ -71,6 +72,18 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         getMenuInflater().inflate(R.menu.main, menu);
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_question:
+                break;
+            case R.id.action_answer:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void questionIcons(){
