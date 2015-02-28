@@ -14,6 +14,7 @@ public class DataSource {
 
     public DataSource() {
         questions = new ArrayList<Question>();
+        answers = new ArrayList<Question>();
         createFakeQuestions();
         createFakeAnswers();
     }

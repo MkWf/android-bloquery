@@ -14,10 +14,28 @@ import com.bloc.bloquery.R;
 import com.bloc.bloquery.api.DataSource;
 import com.parse.models.Question;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by Mark on 2/26/2015.
  */
 public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapter.ItemAdapterViewHolder> {
+
+    public static interface Delegate {
+        public void onItemClicked(QuestionItemAdapter itemAdapter, Question questionItem);
+    }
+
+    private WeakReference<Delegate> delegate;
+
+    public Delegate getDelegate() {
+        if (delegate == null) {
+            return null;
+        }
+        return delegate.get();
+    }
+    public void setDelegate(Delegate delegate) {
+        this.delegate = new WeakReference<Delegate>(delegate);
+    }
 
     @Override
     public ItemAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {
@@ -36,12 +54,13 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
         return BloQueryApplication.getSharedDataSource().getQuestions().size();
     }
 
-    class ItemAdapterViewHolder extends RecyclerView.ViewHolder {
+    class ItemAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView question;
         Button answers;
         ImageView rating;
         ImageButton user;
+        Question questionItem;
 
         public ItemAdapterViewHolder(View itemView) {
             super(itemView);
@@ -49,11 +68,18 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
             question = (TextView) itemView.findViewById(R.id.question_item_question);
             answers = (Button) itemView.findViewById(R.id.queston_item_answers_button);
 
+            itemView.setOnClickListener(this);
         }
 
         void update(Question questionItem) {
+            this.questionItem = questionItem;
             question.setText(questionItem.getQuestion());
             answers.setText("10 answers");
+        }
+
+        @Override
+        public void onClick(View view) {
+            getDelegate().onItemClicked(QuestionItemAdapter.this, questionItem);
         }
     }
 }
