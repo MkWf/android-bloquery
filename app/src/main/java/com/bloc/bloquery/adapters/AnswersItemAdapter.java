@@ -31,7 +31,8 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
 
     @Override
     public int getItemCount() {
-        return BloQueryApplication.getSharedDataSource().getAnswers().size();
+        //return BloQueryApplication.getSharedDataSource().getAnswers().size();
+        return 0;
     }
 
     class ItemAdapterViewHolder extends RecyclerView.ViewHolder {

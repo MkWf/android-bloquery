@@ -11,4 +11,6 @@
     <string name="user_icon">User Icon</string>
     <string name="more_options_menu">More Options Menu</string>
     <string name="upvote">Upvote</string>
+    <string name="add_answer">Add an answer</string>
+    <string name="add_question">Add a question</string>
 </resources>

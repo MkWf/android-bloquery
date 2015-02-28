@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import com.bloc.bloquery.R;
 import com.bloc.bloquery.adapters.QuestionItemAdapter;
@@ -18,12 +20,17 @@ import com.parse.ui.ParseLoginBuilder;
 public class MainActivity extends ActionBarActivity implements QuestionsFragment.Delegate {
 
     Fragment listFragment;
+    Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar = (Toolbar) findViewById(R.id.tb_activity_main);
+        setSupportActionBar(toolbar);
+
         ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
         startActivityForResult(builder.build(), 0);
     }
@@ -47,13 +54,34 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                 .addToBackStack(null)
                 .add(R.id.fl_activity_main, new AnswersFragment())
                 .commit();
+        answerIcons();
     }
 
     @Override
     public void onBackPressed() {
         getFragmentManager().popBackStack();
+        questionIcons();
         if(getFragmentManager().getBackStackEntryCount() <= 0){
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void questionIcons(){
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.action_question).setVisible(true);
+        menu.findItem(R.id.action_answer).setVisible(false);
+    }
+
+    public void answerIcons(){
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.action_question).setVisible(false);
+        menu.findItem(R.id.action_answer).setVisible(true);
     }
 }
