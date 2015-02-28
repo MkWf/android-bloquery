@@ -22,7 +22,9 @@
         android:id="@+id/answer_item_votes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/answer_item_user"/>
+        android:layout_toRightOf="@id/answer_item_user"
+
+        android:layout_alignBottom="@id/answer_item_user"/>
 
     <ImageButton
         android:id="@+id/answer_item_more_options"
