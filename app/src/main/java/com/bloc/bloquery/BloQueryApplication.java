@@ -5,6 +5,7 @@ import android.app.Application;
 import com.bloc.bloquery.api.DataSource;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.models.Answer;
 import com.parse.models.BloQueryUser;
 import com.parse.models.Question;
 
@@ -36,6 +37,7 @@ public class BloQueryApplication extends Application {
 
         ParseObject.registerSubclass(BloQueryUser.class);
         ParseObject.registerSubclass(Question.class);
+        ParseObject.registerSubclass(Answer.class);
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, getResources().getString(R.string.parse_app_id), getResources().getString(R.string.parse_client_key));
 

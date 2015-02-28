@@ -42,4 +42,8 @@ public class AnswersFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(itemAdapter);
     }
+
+    public void notifyAdapter(){
+        itemAdapter.notifyDataSetChanged();
+    }
 }

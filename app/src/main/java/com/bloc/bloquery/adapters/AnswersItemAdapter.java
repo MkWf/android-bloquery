@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.bloc.bloquery.BloQueryApplication;
 import com.bloc.bloquery.R;
 import com.bloc.bloquery.api.DataSource;
-import com.parse.models.Question;
+import com.parse.models.Answer;
 
 /**
  * Created by Mark on 2/27/2015.
@@ -31,8 +31,7 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
 
     @Override
     public int getItemCount() {
-        //return BloQueryApplication.getSharedDataSource().getAnswers().size();
-        return 0;
+        return BloQueryApplication.getSharedDataSource().getAnswers().size();
     }
 
     class ItemAdapterViewHolder extends RecyclerView.ViewHolder {
@@ -51,8 +50,8 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
             moreOptions = (ImageButton) itemView.findViewById(R.id.answer_item_more_options);
         }
 
-        void update(Question questionItem) {
-            answer.setText(questionItem.getQuestion());
+        void update(Answer answerItem) {
+            answer.setText(answerItem.getAnswer());
             votes.setText("100 votes");
         }
     }
