@@ -38,7 +38,7 @@ public class DataSource {
         executorService = Executors.newSingleThreadExecutor();
         questions = new ArrayList<Question>();
         answers = new ArrayList<Answer>();
-        createFakeQuestions();
+        fetchQuestions();
         //createFakeAnswers();
     }
 
@@ -49,7 +49,7 @@ public class DataSource {
         return questions;
     }
 
-    void createFakeQuestions() {
+    void fetchQuestions() {
        //Question p = new Question();
         //p.setQuestion("What is 2+2?");
        // p.saveInBackground();

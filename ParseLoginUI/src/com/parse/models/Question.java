@@ -14,10 +14,8 @@ public class Question extends ParseObject {
     //BloQueryUser user;
     int rating;
 
-    public Question(int i){
-        question = "This is my question " + i;
-        //user = null;
-        rating = 5;
+    public Question(String question){
+        this.question = question;
     }
 
     public Question(){

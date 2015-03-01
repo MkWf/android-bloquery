@@ -12,29 +12,28 @@ import android.widget.ImageButton;
 import com.bloc.bloquery.R;
 
 /**
- * Created by Mark on 2/28/2015.
+ * Created by Mark on 3/1/2015.
  */
-public class AnswersDialogFragment extends DialogFragment implements View.OnClickListener {
-
-    public interface SubmitAnswerDialogListener {
-        void onSubmitAnswerDialog(String inputText);
+public class QuestionsDialogFragment extends DialogFragment implements View.OnClickListener {
+    public interface SubmitQuestionDialogListener {
+        void onSubmitQuestionDialog(String inputText);
     }
 
-    EditText answer;
+    EditText question;
     ImageButton submit;
 
-    public AnswersDialogFragment() {
+    public QuestionsDialogFragment() {
         // Empty constructor required for DialogFragment
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_answers_dialog, container);
-        answer = (EditText) view.findViewById(R.id.fragment_answers_dialog_answer);
-        submit = (ImageButton) view.findViewById(R.id.fragment_answers_dialog_submit);
+        View view = inflater.inflate(R.layout.fragment_questions_dialog, container);
+        question = (EditText) view.findViewById(R.id.fragment_questions_dialog_question);
+        submit = (ImageButton) view.findViewById(R.id.fragment_questions_dialog_submit);
 
-        answer.requestFocus();
+        question.requestFocus();
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
@@ -44,9 +43,8 @@ public class AnswersDialogFragment extends DialogFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        SubmitAnswerDialogListener activity = (SubmitAnswerDialogListener) getActivity();
-        activity.onSubmitAnswerDialog(answer.getText().toString());
+        SubmitQuestionDialogListener activity = (SubmitQuestionDialogListener) getActivity();
+        activity.onSubmitQuestionDialog(question.getText().toString());
         this.dismiss();
     }
 }
-

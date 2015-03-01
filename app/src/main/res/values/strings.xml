@@ -14,4 +14,5 @@
     <string name="add_answer">Add an answer</string>
     <string name="add_question">Add a question</string>
     <string name="answer_dialog_title">Your answer</string>
+    <string name="questions_dialog_title">Query the community</string>
 </resources>
