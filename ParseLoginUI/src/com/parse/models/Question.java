@@ -10,26 +10,24 @@ import com.parse.ParseObject;
 @ParseClassName("Question")
 public class Question extends ParseObject {
 
-    String question;
-    //BloQueryUser user;
-    int rating;
-
     public Question(String question){
-        this.question = question;
+        setQuestion(question);
     }
 
-    public Question(){
+    public String getQuestion() {
+        return getString("question");
     }
 
-    //public BloQueryUser getUser(){return user;}
+    public void setQuestion(String question) {
+        put("question", question);
+    }
 
-    public String getQuestion() {return question;}
-
-    public int getRating() {return rating;}
-
+    //public int getRating() {return rating;}
     //public void setUser(BloQueryUser user){this.user = user;}
+    //public BloQueryUser getUser(){return user;}
+    ////public void setRating(int rating) {this.rating = rating;}
 
-    public void setQuestion(String question) {this.question = question;}
 
-    public void setRating(int rating) {this.rating = rating;}
+
+    public Question(){}
 }
