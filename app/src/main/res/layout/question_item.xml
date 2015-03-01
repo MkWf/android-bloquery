@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/queston_item_answers_button"
+    <TextView
+        android:id="@+id/queston_item_answers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/question_item_question"/>
@@ -18,7 +18,10 @@
         android:id="@+id/question_item_interest_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/question_rating"/>
+        android:layout_below="@id/question_item_question"
+        android:layout_toRightOf="@id/queston_item_answers"
+        android:contentDescription="@string/question_rating"
+        android:src="@mipmap/question_item_interest_indicator"/>
 
     <ImageButton
         android:id="@+id/question_item_user"
