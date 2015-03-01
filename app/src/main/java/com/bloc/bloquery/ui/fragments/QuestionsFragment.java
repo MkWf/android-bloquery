@@ -66,4 +66,8 @@ public class QuestionsFragment extends Fragment implements QuestionItemAdapter.D
     public void onItemClicked(QuestionItemAdapter itemAdapter, Question questionItem) {
         listener.onItemClicked(itemAdapter, questionItem);
     }
+
+    public void notifyAdapter(){
+        questionItemAdapter.notifyDataSetChanged();
+    }
 }

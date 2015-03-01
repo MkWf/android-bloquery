@@ -16,11 +16,15 @@ import com.bloc.bloquery.ui.fragments.AnswersDialogFragment;
 import com.bloc.bloquery.ui.fragments.AnswersFragment;
 import com.bloc.bloquery.ui.fragments.QuestionsDialogFragment;
 import com.bloc.bloquery.ui.fragments.QuestionsFragment;
+import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.parse.models.Answer;
 import com.parse.models.Question;
 import com.parse.ui.ParseLoginBuilder;
+
+import java.util.List;
 
 /**
  * Created by Mark on 2/25/2015.
@@ -52,7 +56,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         listFragment = new QuestionsFragment();
         getFragmentManager()
                 .beginTransaction()
-                .add(R.id.fl_activity_main, listFragment)
+                .add(R.id.fl_activity_main, listFragment, "Question")
                 .commit();
     }
 
@@ -98,6 +102,8 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.action_question:
+                QuestionsDialogFragment qdf = new QuestionsDialogFragment();
+                qdf.show(getFragmentManager(), "Question");
                 break;
             case R.id.action_answer:
                 AnswersDialogFragment adf = new AnswersDialogFragment();
@@ -123,6 +129,22 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
     @Override
     public void onSubmitQuestionDialog(String inputText) {
         Question q = new Question(inputText);
+        q.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                ParseQuery<Question> query = ParseQuery.getQuery("Question");
+                query.orderByDescending("createdAt");
+                query.setLimit(10);
+                query.findInBackground(new FindCallback<Question>() {
+                    public void done(List<Question> questionsList, ParseException e) {
+                        BloQueryApplication.getSharedDataSource().setQuestions(questionsList);
+                        Fragment f = getFragmentManager().findFragmentByTag("Question");
+                        QuestionsFragment qf = (QuestionsFragment) f;
+                        qf.notifyAdapter();
+                    }
+                });
+            }
+        });
     }
 
     @Override

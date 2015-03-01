@@ -48,6 +48,9 @@ public class DataSource {
     public List<Question> getQuestions() {
         return questions;
     }
+    public void setQuestions(List<Question> questions){
+        this.questions = questions;
+    }
 
     void fetchQuestions() {
        //Question p = new Question();
