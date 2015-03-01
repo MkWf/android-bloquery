@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
 
     Fragment listFragment;
     Toolbar toolbar;
+    Question clickedItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -54,7 +55,8 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
 
     @Override
     public void onItemClicked(QuestionItemAdapter itemAdapter, Question questionItem) {
-        BloQueryApplication.getSharedDataSource().fetchAnswers(new DataSource.Callback() {
+        clickedItem = questionItem;
+        BloQueryApplication.getSharedDataSource().fetchAnswers(questionItem.getObjectId(), new DataSource.Callback() {
             @Override
             public void onSuccess() {
                 getFragmentManager()
@@ -117,11 +119,12 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
 
     @Override
     public void onSubmitDialog(String inputText) {
-        Answer a = new Answer(inputText);
+        Answer a = new Answer(inputText, clickedItem.getObjectId());
+        a.put("parent", clickedItem.getObjectId());
         a.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                BloQueryApplication.getSharedDataSource().fetchAnswers(new DataSource.Callback() {
+                BloQueryApplication.getSharedDataSource().fetchAnswers(clickedItem.getObjectId(), new DataSource.Callback() {
                     @Override
                     public void onSuccess() {
                         Fragment f = getFragmentManager().findFragmentByTag("Answer");

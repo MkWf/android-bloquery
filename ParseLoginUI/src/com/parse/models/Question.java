@@ -21,7 +21,6 @@ public class Question extends ParseObject {
     }
 
     public Question(){
-        question = "This is my answer";
     }
 
     //public BloQueryUser getUser(){return user;}

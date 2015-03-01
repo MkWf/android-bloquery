@@ -50,9 +50,9 @@ public class DataSource {
     }
 
     void createFakeQuestions() {
-       // Question p = new Question();
-        //p.setQuestion("Question 1");
-        //p.saveInBackground();
+       //Question p = new Question();
+        //p.setQuestion("What is 2+2?");
+       // p.saveInBackground();
 
        // Question q = new Question();
         //q.setQuestion("Question 2");
@@ -71,13 +71,13 @@ public class DataSource {
        // });
     }
 
-    public void fetchAnswers(final Callback result){
+    public void fetchAnswers(final String questionId, final Callback result){
         final Handler callbackThreadHandler = new Handler();
         submitTask(new Runnable() {
             @Override
             public void run() {
                 ParseQuery<Answer> query = ParseQuery.getQuery("Answer");
-                //query.
+                query.whereEqualTo("parent", questionId);
                 query.orderByDescending("createdAt");
                 query.setLimit(10);
                 query.findInBackground(new FindCallback<Answer>() {
