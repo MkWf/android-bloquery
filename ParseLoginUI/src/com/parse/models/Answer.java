@@ -15,13 +15,27 @@ public class Answer extends ParseObject {
     public Answer(){}
 
     public Answer(String answer, String parent){
-        this.answer = answer;
-        this.parent = parent;
+        setAnswer(answer);
+        setParent(parent);
     }
 
-    public void setAnswer(String answer){this.answer = answer;}
+    public String getAnswer() {
+        return getString("answer");
+    }
 
-    public void setParentQuestion(String question){this.parent = question;}
+    public String getParent(){
+        return getString("parent");
+    }
 
-    public String getAnswer(){return answer;}
+    public void setAnswer(String answer) {
+        put("answer", answer);
+    }
+
+    public void setParent(String question){
+        put("parent", question);
+    }
+
+
+
+
 }

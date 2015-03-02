@@ -44,6 +44,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.tb_activity_main);
+        toolbar.setLogo(R.mipmap.ic_toolbar_icon);
         setSupportActionBar(toolbar);
 
         ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
