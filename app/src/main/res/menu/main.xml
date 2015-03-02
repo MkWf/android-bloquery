@@ -15,4 +15,10 @@
         android:visible="false"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/action_profile"
+        android:icon="@mipmap/user_default"
+        android:title="Profile"
+        android:visible="true"
+        app:showAsAction="always"/>
+
 </menu>

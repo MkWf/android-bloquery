@@ -14,6 +14,7 @@ import com.bloc.bloquery.adapters.QuestionItemAdapter;
 import com.bloc.bloquery.api.DataSource;
 import com.bloc.bloquery.ui.fragments.AnswersDialogFragment;
 import com.bloc.bloquery.ui.fragments.AnswersFragment;
+import com.bloc.bloquery.ui.fragments.ProfileFragment;
 import com.bloc.bloquery.ui.fragments.QuestionsDialogFragment;
 import com.bloc.bloquery.ui.fragments.QuestionsFragment;
 import com.parse.FindCallback;
@@ -110,6 +111,13 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                 AnswersDialogFragment adf = new AnswersDialogFragment();
                 adf.show(getFragmentManager(), "Answer");
                 break;
+            case R.id.action_profile:
+                getFragmentManager()
+                        .beginTransaction()
+                        .hide(listFragment)
+                        .addToBackStack(null)
+                        .add(R.id.fl_activity_main, new ProfileFragment(), "Profile")
+                        .commit();
         }
 
         return super.onOptionsItemSelected(item);
@@ -119,12 +127,14 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.action_question).setVisible(true);
         menu.findItem(R.id.action_answer).setVisible(false);
+        menu.findItem(R.id.action_profile).setVisible(true);
     }
 
     public void answerIcons(){
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.action_question).setVisible(false);
         menu.findItem(R.id.action_answer).setVisible(true);
+        menu.findItem(R.id.action_profile).setVisible(false);
     }
 
     @Override

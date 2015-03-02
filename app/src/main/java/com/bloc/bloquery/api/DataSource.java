@@ -39,7 +39,6 @@ public class DataSource {
         questions = new ArrayList<Question>();
         answers = new ArrayList<Answer>();
         fetchQuestions();
-        //createFakeAnswers();
     }
 
     public List<Answer> getAnswers() {
@@ -53,25 +52,14 @@ public class DataSource {
     }
 
     void fetchQuestions() {
-       //Question p = new Question();
-        //p.setQuestion("What is 2+2?");
-       // p.saveInBackground();
-
-       // Question q = new Question();
-        //q.setQuestion("Question 2");
-        //q.saveInBackground(new SaveCallback() {
-        //    @Override
-         //   public void done(ParseException e) {
-                ParseQuery<Question> query = ParseQuery.getQuery("Question");
-                query.orderByDescending("createdAt");
-                query.setLimit(10);
-                query.findInBackground(new FindCallback<Question>() {
-                    public void done(List<Question> questionsList, ParseException e) {
-                        questions = questionsList;
-                    }
-                });
-            //}
-       // });
+        ParseQuery<Question> query = ParseQuery.getQuery("Question");
+        query.orderByDescending("createdAt");
+        query.setLimit(10);
+        query.findInBackground(new FindCallback<Question>() {
+            public void done(List<Question> questionsList, ParseException e) {
+                questions = questionsList;
+            }
+        });
     }
 
     public void fetchAnswers(final String questionId, final Callback result){
