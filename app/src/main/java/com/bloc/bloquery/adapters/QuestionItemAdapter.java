@@ -73,7 +73,7 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
         void update(Question questionItem) {
             this.questionItem = questionItem;
             question.setText(questionItem.getQuestion());
-            answers.setText("10 answers");
+            answers.setText(Integer.toString(questionItem.getAnswers()) + " answers");
         }
 
         @Override

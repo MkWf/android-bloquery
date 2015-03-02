@@ -12,6 +12,7 @@ public class Question extends ParseObject {
 
     public Question(String question){
         setQuestion(question);
+        put("answers", 0);
     }
 
     public String getQuestion() {
@@ -20,6 +21,10 @@ public class Question extends ParseObject {
 
     public void setQuestion(String question) {
         put("question", question);
+    }
+
+    public int getAnswers(){
+        return getInt("answers");
     }
 
     //public int getRating() {return rating;}

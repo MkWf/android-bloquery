@@ -150,6 +150,16 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
 
     @Override
     public void onSubmitAnswerDialog(String inputText) {
+        clickedItem.increment("answers");
+        clickedItem.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                Fragment f = getFragmentManager().findFragmentByTag("Question");
+                QuestionsFragment qf = (QuestionsFragment) f;
+                qf.notifyAdapter();
+            }
+        });
+
         Answer a = new Answer(inputText, clickedItem.getObjectId());
         a.put("parent", clickedItem.getObjectId());
         a.saveInBackground(new SaveCallback() {
