@@ -25,6 +25,10 @@ public class BloQueryUser extends ParseUser {
         put("description", profileDescription);
     }
 
+    public String getUserName(){
+        return getString("name");
+    }
+
    // public void setProfileImage(String profileImage) {
       //  this.profileImage = profileImage;
     //}

@@ -1,6 +1,8 @@
 package com.bloc.bloquery.ui.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,12 +21,14 @@ import com.bloc.bloquery.R;
  */
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
+    private static final int PICK_IMAGE = 1;
+
     Button descriptionButton;
     TextView user;
     ImageView userImage;
     TextView description;
     EditText editDescription;
-    Button uploadImage;
+    Button uploadImageButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,12 +44,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         userImage = (ImageView) inflate.findViewById(R.id.fragment_profile_image);
         description = (TextView) inflate.findViewById(R.id.fragment_profile_description);
         editDescription = (EditText) inflate.findViewById(R.id.fragment_profile_edit_description);
-        uploadImage = (Button) inflate.findViewById(R.id.fragment_profile_upload_image);
+        uploadImageButton = (Button) inflate.findViewById(R.id.fragment_profile_upload_image);
         descriptionButton = (Button) inflate.findViewById(R.id.fragment_profile_description_button);
+
+        user.setText(BloQueryApplication.getSharedDataSource().getCurrentUser().getUserName() + "'s Profile");
 
         description.setText(BloQueryApplication.getSharedDataSource().getCurrentUser().getProfileDescription());
         editDescription.setText(description.getText());
 
+        uploadImageButton.setOnClickListener(this);
         descriptionButton.setOnClickListener(this);
 
         return inflate;
@@ -53,19 +60,51 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(description.getVisibility() == View.VISIBLE){
-            description.setVisibility(View.GONE);
-            editDescription.setVisibility(View.VISIBLE);
-            editDescription.requestFocus();
-            descriptionButton.setText("Save Description");
-        }else{
-            BloQueryApplication.getSharedDataSource().getCurrentUser().setProfileDescription(editDescription.getText().toString());
-            BloQueryApplication.getSharedDataSource().getCurrentUser().saveInBackground();
-            description.setText(editDescription.getText());
-            description.setVisibility(View.VISIBLE);
-            editDescription.setVisibility(View.GONE);
-            descriptionButton.setText("Edit Description");
+        switch(v.getId()){
+            case R.id.fragment_profile_description_button:
+                if(description.getVisibility() == View.VISIBLE){
+                    description.setVisibility(View.GONE);
+                    editDescription.setVisibility(View.VISIBLE);
+                    editDescription.requestFocus();
+                    descriptionButton.setText("Save Description");
+                }else{
+                    BloQueryApplication.getSharedDataSource().getCurrentUser().setProfileDescription(editDescription.getText().toString());
+                    BloQueryApplication.getSharedDataSource().getCurrentUser().saveInBackground();
+                    description.setText(editDescription.getText());
+                    description.setVisibility(View.VISIBLE);
+                    editDescription.setVisibility(View.GONE);
+                    descriptionButton.setText("Edit Description");
+                }
+                break;
+            case R.id.fragment_profile_upload_image:
+                /*Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);*/
+                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, PICK_IMAGE);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Uri selectedImage = data.getData();
+        userImage.setImageURI(selectedImage);
+        /*Uri selectedImage = data.getData();
+        String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+        Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                filePathColumn, null, null, null);
+        cursor.moveToFirst();
+
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+
+        Bitmap bmp = BitmapFactory.decodeFile(picturePath);
+        userImage.setImageBitmap(bmp);*/
     }
 }
 
