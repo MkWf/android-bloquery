@@ -2,6 +2,7 @@ package com.bloc.bloquery.ui.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,14 @@ import android.widget.TextView;
 
 import com.bloc.bloquery.BloQueryApplication;
 import com.bloc.bloquery.R;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.SaveCallback;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Mark on 3/2/2015.
@@ -48,9 +57,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         descriptionButton = (Button) inflate.findViewById(R.id.fragment_profile_description_button);
 
         user.setText(BloQueryApplication.getSharedDataSource().getCurrentUser().getUserName() + "'s Profile");
-
         description.setText(BloQueryApplication.getSharedDataSource().getCurrentUser().getProfileDescription());
         editDescription.setText(description.getText());
+
+        ParseFile image = (ParseFile) BloQueryApplication.getSharedDataSource().getCurrentUser().get("image");
+        image.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] bytes, ParseException e) {
+                if(e == null){
+                    userImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                }
+            }
+        });
 
         uploadImageButton.setOnClickListener(this);
         descriptionButton.setOnClickListener(this);
@@ -92,6 +110,22 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         Uri selectedImage = data.getData();
         userImage.setImageURI(selectedImage);
+
+
+        try {
+            final ParseFile image = new ParseFile("profile image", readBytes(selectedImage));
+            image.saveInBackground(
+                new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        BloQueryApplication.getSharedDataSource().getCurrentUser().put("image", image);
+                        BloQueryApplication.getSharedDataSource().getCurrentUser().saveInBackground();
+                    }
+                }
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         /*Uri selectedImage = data.getData();
         String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
@@ -105,6 +139,25 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         Bitmap bmp = BitmapFactory.decodeFile(picturePath);
         userImage.setImageBitmap(bmp);*/
+    }
+
+    public byte[] readBytes(Uri uri) throws IOException {
+        // this dynamically extends to take the bytes you read
+        InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+
+        // this is storage overwritten on each iteration with bytes
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        // we need to know how may bytes were read to write them to the byteBuffer
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+
+        // and then we can return your byte array.
+        return byteBuffer.toByteArray();
     }
 }
 

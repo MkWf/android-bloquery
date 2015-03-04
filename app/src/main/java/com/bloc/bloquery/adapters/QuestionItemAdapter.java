@@ -1,5 +1,6 @@
 package com.bloc.bloquery.adapters;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 import com.bloc.bloquery.BloQueryApplication;
 import com.bloc.bloquery.R;
 import com.bloc.bloquery.api.DataSource;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.models.Question;
 
 import java.lang.ref.WeakReference;
@@ -66,6 +70,7 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
 
             question = (TextView) itemView.findViewById(R.id.question_item_question);
             answers = (TextView) itemView.findViewById(R.id.queston_item_answers);
+            user = (ImageButton) itemView.findViewById(R.id.question_item_user);
 
             itemView.setOnClickListener(this);
         }
@@ -74,6 +79,32 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
             this.questionItem = questionItem;
             question.setText(questionItem.getQuestion());
             answers.setText(Integer.toString(questionItem.getAnswers()) + " answers");
+
+            ParseFile image = (ParseFile) BloQueryApplication.getSharedDataSource().getCurrentUser().get("image");
+            image.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] bytes, ParseException e) {
+                    if(e == null){
+                        int targetW = user.getWidth();
+                        int targetH = user.getHeight();
+
+                        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                        bmOptions.inJustDecodeBounds = true;
+                        BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions);
+
+                        int photoW = bmOptions.outWidth;
+                        int photoH = bmOptions.outHeight;
+
+                        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+                        bmOptions.inJustDecodeBounds = false;
+                        bmOptions.inSampleSize = scaleFactor;
+                        //bmOptions.inPurgeable = true;
+
+                        user.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions));
+                    }
+                }
+            });
         }
 
         @Override
@@ -81,4 +112,5 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
             getDelegate().onItemClicked(QuestionItemAdapter.this, questionItem);
         }
     }
+
 }
