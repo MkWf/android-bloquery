@@ -116,6 +116,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                 adf.show(getFragmentManager(), "Answer");
                 break;
             case R.id.action_profile:
+                profileIcons();
                 getFragmentManager()
                         .beginTransaction()
                         .hide(listFragment)
@@ -138,6 +139,13 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.action_question).setVisible(false);
         menu.findItem(R.id.action_answer).setVisible(true);
+        menu.findItem(R.id.action_profile).setVisible(true);
+    }
+
+    public void profileIcons(){
+        Menu menu = toolbar.getMenu();
+        menu.findItem(R.id.action_question).setVisible(false);
+        menu.findItem(R.id.action_answer).setVisible(false);
         menu.findItem(R.id.action_profile).setVisible(false);
     }
 

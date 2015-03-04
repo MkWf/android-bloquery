@@ -32,4 +32,12 @@
         android:layout_below="@id/question_item_question"
         android:contentDescription="@string/question_user" />
 
+    <View
+        android:id="@+id/point_item_horizontal_line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/question_item_user"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"/>
+
 </RelativeLayout>
