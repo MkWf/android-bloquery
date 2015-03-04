@@ -181,6 +181,7 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
       user.setUsername(username);
       user.setPassword(password);
       user.setEmail(email);
+      user.setProfileDescription("Tell us a little about yourself");
 
       // Set additional custom fields only if the user filled it out
       if (name.length() != 0) {

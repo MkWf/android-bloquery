@@ -6,6 +6,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.models.Answer;
+import com.parse.models.BloQueryUser;
 import com.parse.models.Question;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class DataSource {
 
     private List<Question> questions;
     private List<Answer> answers;
+    private BloQueryUser currentUser;
 
     public DataSource() {
         executorService = Executors.newSingleThreadExecutor();
@@ -46,6 +48,12 @@ public class DataSource {
     }
     public List<Question> getQuestions() {
         return questions;
+    }
+    public void setCurrentUser(BloQueryUser user){
+        this.currentUser = (BloQueryUser)user;
+    }
+    public BloQueryUser getCurrentUser(){
+        return this.currentUser;
     }
     public void setQuestions(List<Question> questions){
         this.questions = questions;

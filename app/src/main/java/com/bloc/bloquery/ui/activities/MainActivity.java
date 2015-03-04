@@ -22,6 +22,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.parse.models.Answer;
+import com.parse.models.BloQueryUser;
 import com.parse.models.Question;
 import com.parse.ui.ParseLoginBuilder;
 
@@ -55,6 +56,9 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        BloQueryApplication.getSharedDataSource().setCurrentUser((BloQueryUser)BloQueryUser.getCurrentUser());
+
         listFragment = new QuestionsFragment();
         getFragmentManager()
                 .beginTransaction()
