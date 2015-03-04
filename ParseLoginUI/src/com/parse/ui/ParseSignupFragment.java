@@ -22,6 +22,8 @@
 package com.parse.ui;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -33,8 +35,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.parse.models.BloQueryUser;
+
+import java.nio.ByteBuffer;
 
 /**
  * Fragment for the user signup screen.
@@ -50,6 +56,7 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
   private EditText nameField;
   private Button createAccountButton;
   private ParseOnLoginSuccessListener onLoginSuccessListener;
+  private String name = null;
 
   private ParseLoginConfig config;
   private int minPasswordLength;
@@ -147,7 +154,6 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
       email = emailField.getText().toString();
     }
 
-    String name = null;
     if (nameField != null) {
       name = nameField.getText().toString();
     }
@@ -175,7 +181,7 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
     } else if (name != null && name.length() == 0) {
       showToast(R.string.com_parse_ui_no_name_toast);
     } else {
-      BloQueryUser user = new BloQueryUser();
+      final BloQueryUser user = new BloQueryUser();
 
       // Set standard fields
       user.setUsername(username);
@@ -183,45 +189,61 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
       user.setEmail(email);
       user.setProfileDescription("Tell us a little about yourself");
 
-      // Set additional custom fields only if the user filled it out
-      if (name.length() != 0) {
-        user.put(USER_OBJECT_NAME_FIELD, name);
-      }
+        Bitmap bm = BitmapFactory.decodeResource(getResources(),
+                R.drawable.user_default);
+        int bytes = bm.getByteCount();
+        ByteBuffer buffer = ByteBuffer.allocate(bytes); //Create a new buffer
+        bm.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
 
-      loadingStart();
-      user.signUpInBackground(new SignUpCallback() {
+        byte[] array = buffer.array(); //Get the underlying array containing the data.
 
-        @Override
-        public void done(ParseException e) {
-          if (isActivityDestroyed()) {
-            return;
-          }
+        final ParseFile file = new ParseFile("profile_image", array);
+        file.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                user.setProfileImage(file);
 
-          if (e == null) {
-            loadingFinish();
-            signupSuccess();
-          } else {
-            loadingFinish();
-            if (e != null) {
-              debugLog(getString(R.string.com_parse_ui_login_warning_parse_signup_failed) +
-                  e.toString());
-              switch (e.getCode()) {
-                case ParseException.INVALID_EMAIL_ADDRESS:
-                  showToast(R.string.com_parse_ui_invalid_email_toast);
-                  break;
-                case ParseException.USERNAME_TAKEN:
-                  showToast(R.string.com_parse_ui_username_taken_toast);
-                  break;
-                case ParseException.EMAIL_TAKEN:
-                  showToast(R.string.com_parse_ui_email_taken_toast);
-                  break;
-                default:
-                  showToast(R.string.com_parse_ui_signup_failed_unknown_toast);
-              }
+                // Set additional custom fields only if the user filled it out
+                if (name.length() != 0) {
+                    user.put(USER_OBJECT_NAME_FIELD, name);
+                }
+
+                loadingStart();
+                user.signUpInBackground(new SignUpCallback() {
+
+                    @Override
+                    public void done(ParseException e) {
+                        if (isActivityDestroyed()) {
+                            return;
+                        }
+
+                        if (e == null) {
+                            loadingFinish();
+                            signupSuccess();
+                        } else {
+                            loadingFinish();
+                            if (e != null) {
+                                debugLog(getString(R.string.com_parse_ui_login_warning_parse_signup_failed) +
+                                        e.toString());
+                                switch (e.getCode()) {
+                                    case ParseException.INVALID_EMAIL_ADDRESS:
+                                        showToast(R.string.com_parse_ui_invalid_email_toast);
+                                        break;
+                                    case ParseException.USERNAME_TAKEN:
+                                        showToast(R.string.com_parse_ui_username_taken_toast);
+                                        break;
+                                    case ParseException.EMAIL_TAKEN:
+                                        showToast(R.string.com_parse_ui_email_taken_toast);
+                                        break;
+                                    default:
+                                        showToast(R.string.com_parse_ui_signup_failed_unknown_toast);
+                                }
+                            }
+                        }
+                    }
+                });
             }
-          }
-        }
-      });
+        });
     }
   }
 

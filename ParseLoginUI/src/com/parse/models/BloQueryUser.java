@@ -1,5 +1,6 @@
 package com.parse.models;
 
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 /**
@@ -23,6 +24,10 @@ public class BloQueryUser extends ParseUser {
 
     public void setProfileDescription(String profileDescription) {
         put("description", profileDescription);
+    }
+
+    public void setProfileImage(ParseFile profileImage){
+        put("image", profileImage);
     }
 
     public String getUserName(){

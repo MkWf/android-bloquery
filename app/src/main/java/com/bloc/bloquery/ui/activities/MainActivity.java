@@ -152,6 +152,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
     @Override
     public void onSubmitQuestionDialog(String inputText) {
         Question q = new Question(inputText);
+        q.put("parent", BloQueryApplication.getSharedDataSource().getCurrentUser().getObjectId());
         q.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

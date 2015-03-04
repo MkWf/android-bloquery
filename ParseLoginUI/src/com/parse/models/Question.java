@@ -32,6 +32,14 @@ public class Question extends ParseObject {
     //public BloQueryUser getUser(){return user;}
     ////public void setRating(int rating) {this.rating = rating;}
 
+    public String getParent(){
+        return getString("parent");
+    }
+
+    public void setParent(String user){
+        put("parent", user);
+    }
+
 
 
     public Question(){}
