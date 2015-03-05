@@ -66,6 +66,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             public void done(byte[] bytes, ParseException e) {
                 if(e == null){
                     userImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                    Fragment f = getFragmentManager().findFragmentByTag("Question");
+                    QuestionsFragment qf = (QuestionsFragment) f;
+                    qf.notifyAdapter();
                 }
             }
         });
@@ -118,7 +121,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        BloQueryApplication.getSharedDataSource().getCurrentUser().put("image", image);
+                        BloQueryApplication.getSharedDataSource().getCurrentUser().setProfileImage(image);
                         BloQueryApplication.getSharedDataSource().getCurrentUser().saveInBackground();
                     }
                 }

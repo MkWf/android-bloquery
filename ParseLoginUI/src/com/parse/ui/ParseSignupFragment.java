@@ -23,7 +23,8 @@ package com.parse.ui;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -40,7 +41,7 @@ import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.parse.models.BloQueryUser;
 
-import java.nio.ByteBuffer;
+import java.io.ByteArrayOutputStream;
 
 /**
  * Fragment for the user signup screen.
@@ -189,15 +190,13 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
       user.setEmail(email);
       user.setProfileDescription("Tell us a little about yourself");
 
-        Bitmap bm = BitmapFactory.decodeResource(getResources(),
-                R.drawable.user_default);
-        int bytes = bm.getByteCount();
-        ByteBuffer buffer = ByteBuffer.allocate(bytes); //Create a new buffer
-        bm.copyPixelsToBuffer(buffer); //Move the byte data to the buffer
+        Drawable drawable = getResources().getDrawable(R.drawable.user_default);
+        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] bitMapData = stream.toByteArray();
 
-        byte[] array = buffer.array(); //Get the underlying array containing the data.
-
-        final ParseFile file = new ParseFile("profile_image", array);
+        final ParseFile file = new ParseFile("profile_image", bitMapData);
         file.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

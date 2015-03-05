@@ -1,0 +1,173 @@
+[33mcommit d18be64a3abece91bb3ba9ab0e6c4c07d0e15f15[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Wed Mar 4 16:59:04 2015 -0500
+
+    Each question now displays its parent's profile image
+
+[33mcommit 2234cdfce16ebb2ae40e5700ad4cdac98d82f56d[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Wed Mar 4 15:12:05 2015 -0500
+
+    Changed what toolbar icons appear when the Profile fragment is visible
+
+[33mcommit 00536ee615b6296b1f0268eff2baa02e44ed6f9d[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Wed Mar 4 15:00:53 2015 -0500
+
+    Profile images are saved by Parse and Question items now displays a scaled version of the user's profile image.
+
+[33mcommit 0dae16a9685026a75542fb68f4408384b9955b9e[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Wed Mar 4 02:14:35 2015 -0500
+
+    Adjusted profile layout. User can add an image from their gallery to their profile. Not yet saved to Parse.
+
+[33mcommit a6340c4959e00ad0be698b6dc7aa76643b9c610f[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Tue Mar 3 22:59:50 2015 -0500
+
+    DataSource holds the current BloQueryUser. Updated ParseSignUpFragment to include a defualt user description. Added ability to edit profile description.
+
+[33mcommit 3ba132a414024b9c941a9f6dba4d450187ed2468[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Mon Mar 2 18:17:41 2015 -0500
+
+    Added ProfileFragment. Added profile layout. Added profile icon to toolbar
+
+[33mcommit 48d013eae3ac90de1f173931f2028e651f0abe3b[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Mon Mar 2 00:56:35 2015 -0500
+
+    Answers count for each question is updated when a new answer is submitted
+
+[33mcommit c28dfc01670a84003ac382ac1c662a1ce4eb66b7[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Mon Mar 2 00:30:48 2015 -0500
+
+    Fixed Answer class to add answer and parent columns to parse
+
+[33mcommit 40eb1c5eb59e1c70f5afe9d06a9d4251d50da8f6[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Sun Mar 1 17:50:31 2015 -0500
+
+    Fixed methods in Question class
+
+[33mcommit f0ad12e8796055f72e317513b683c886805b8a20[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Sun Mar 1 17:39:11 2015 -0500
+
+    Added interest indicator icon for question items. Updated question item layout
+
+[33mcommit df9e55039b29962a46a66a9af41cc5b5dd1f2228[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Sun Mar 1 16:09:15 2015 -0500
+
+    Added ability to add new questions
+
+[33mcommit afe1f6be32d1d15a81dad26646ddd80818702af7[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Sun Mar 1 14:51:56 2015 -0500
+
+    Added questions dialog layout. Added questions dialog fragment
+
+[33mcommit 5f9175e267fba736ffc55e00835971fa7f6ffcc9[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Sat Feb 28 21:36:01 2015 -0500
+
+    Questions now display the correct answers
+
+[33mcommit 261311ce4fd26f0db6eae6f6a6cb16251b5c2a0e[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Sat Feb 28 18:30:39 2015 -0500
+
+    Questions and Answers are displayed in both fragments.
+
+[33mcommit f9a18c77fa1a595dc4a3a5870840c55edf424996[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Sat Feb 28 15:56:35 2015 -0500
+
+    Added onOptionsItemSelected to MainActivity
+
+[33mcommit b7cfe1044d8c332f8745cb275cf9891b84267f63[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Sat Feb 28 15:36:16 2015 -0500
+
+    Added toolbar icons for Question/AnswerFragment. Icons display properly based on which fragment is visible.
+
+[33mcommit e7017f514e62fdd4b167f451bf29bf553fee2e8f[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 23:53:56 2015 -0500
+
+    Added fake questions to Parse and displayed them in QuestionsFragment
+
+[33mcommit ee90e20cb1090d4f04a9e7a892f266ecb0c282e7[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 23:42:44 2015 -0500
+
+    Adjusted answer_item layout for the votes positioning
+
+[33mcommit 30fabb1fbb347a8b287321e6bd035c7662696161[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 20:32:37 2015 -0500
+
+    ItemAdapter passes item click delegation to QuestionsFragment which then delegates it to MainActivity. AnswersFragment is displayed when a list item is clicked. Fake data is still used
+
+[33mcommit 114fae677b7034e9d7b838b4c73662d8d6c8c80e[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 18:07:34 2015 -0500
+
+    Created fake answers in DataSource. Added base functionality for AnswersItemAdapter
+
+[33mcommit e722ed87f5b051194d828789ff9bee712d149357[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 17:57:04 2015 -0500
+
+    Added icons for the Answers layout
+
+[33mcommit 7045930071b859f761bb65ac274404ada8f5221e[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 01:29:17 2015 -0500
+
+    Added AnswersItemAdapter. Added fragment_answers_list layout.
+
+[33mcommit bee2a92d283225ecb7880fe09978dab5bd31ba96[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 01:17:36 2015 -0500
+
+    Added DataSource. Updated ItemAdapter. MainActivity adds the QuestionsFragment and displays the the fake list of questions.
+
+[33mcommit b2398300f450400a9dc933d1d7cfbf0f1b0e1753[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 00:39:54 2015 -0500
+
+    Updated Question class
+
+[33mcommit 2ea689ec745419f519e38465b6462501710f4ea4[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 00:34:35 2015 -0500
+
+    Added question_item layout file.
+
+[33mcommit 61c8729013b3dedaf661478b1122d100303dd0f9[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Fri Feb 27 00:07:59 2015 -0500
+
+    Added ItemAdapter base and fragment_questions_list layout
+
+[33mcommit b1f57f0c11882fcf0e87b31ed6f3ed8f995e8354[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Thu Feb 26 23:55:59 2015 -0500
+
+    Added Question class
+
+[33mcommit 2877eb1db2ddaaad447aab5e9e1286b17e627062[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Thu Feb 26 01:00:46 2015 -0500
+
+    Imported ParseLoginUI. Added BloQueryUser and modified ParseSignUpFragment. Added app_logo image. Created user with sign up.
+
+[33mcommit 7cbd7f99171afd676aba6c9cb04cf98c284745da[m
+Author: Mark Wassef <markdevw@gmail.com>
+Date:   Wed Feb 25 20:17:31 2015 -0500
+
+    Added layout for home screen, MainActivity
