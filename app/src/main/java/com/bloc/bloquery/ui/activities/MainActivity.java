@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         QuestionsDialogFragment.SubmitQuestionDialogListener,
         AnswersDialogFragment.SubmitAnswerDialogListener {
 
-    Fragment listFragment;
+    Fragment currentFragment;
     Toolbar toolbar;
     Question clickedItem;
 
@@ -59,10 +59,11 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
 
         BloQueryApplication.getSharedDataSource().setCurrentUser((BloQueryUser)BloQueryUser.getCurrentUser());
 
-        listFragment = new QuestionsFragment();
+        QuestionsFragment qf = new QuestionsFragment();
+        currentFragment = qf;
         getFragmentManager()
                 .beginTransaction()
-                .add(R.id.fl_activity_main, listFragment, "Question")
+                .add(R.id.fl_activity_main, qf, "Question")
                 .commit();
     }
 
@@ -72,13 +73,16 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         BloQueryApplication.getSharedDataSource().fetchAnswers(questionItem.getObjectId(), new DataSource.Callback() {
             @Override
             public void onSuccess() {
+                AnswersFragment af = new AnswersFragment();
+
                 getFragmentManager()
                         .beginTransaction()
-                        .hide(listFragment)
+                        .hide(currentFragment)
                         .addToBackStack(null)
-                        .add(R.id.fl_activity_main, new AnswersFragment(), "Answer")
+                        .add(R.id.fl_activity_main, af, "Answer")
                         .commit();
                 answerIcons();
+                currentFragment = af;
             }
 
             @Override
@@ -90,9 +94,20 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
 
     @Override
     public void onBackPressed() {
-        getFragmentManager().popBackStack();
-        questionIcons();
-        if(getFragmentManager().getBackStackEntryCount() <= 0){
+        if(getFragmentManager().findFragmentByTag("Profile") != null && getFragmentManager().findFragmentByTag("Profile").isVisible()){
+            getFragmentManager().popBackStackImmediate();
+            if(getFragmentManager().findFragmentByTag("Question").isVisible()){
+                currentFragment = getFragmentManager().findFragmentByTag("Question");
+                questionIcons();
+            }else{
+                currentFragment = getFragmentManager().findFragmentByTag("Answer");
+                answerIcons();
+            }
+        }else if(getFragmentManager().findFragmentByTag("Answer") != null && getFragmentManager().findFragmentByTag("Answer").isVisible()){
+            getFragmentManager().popBackStackImmediate();
+            currentFragment = getFragmentManager().findFragmentByTag("Question");
+            questionIcons();
+        }else if(getFragmentManager().findFragmentByTag("Question").isVisible()){
             super.onBackPressed();
         }
     }
@@ -117,12 +132,16 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                 break;
             case R.id.action_profile:
                 profileIcons();
+
+                ProfileFragment pf = new ProfileFragment();
+
                 getFragmentManager()
                         .beginTransaction()
-                        .hide(listFragment)
+                        .hide(currentFragment)
                         .addToBackStack(null)
-                        .add(R.id.fl_activity_main, new ProfileFragment(), "Profile")
+                        .add(R.id.fl_activity_main, pf, "Profile")
                         .commit();
+                currentFragment = pf;
         }
 
         return super.onOptionsItemSelected(item);
@@ -183,8 +202,8 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
             }
         });
 
-        Answer a = new Answer(inputText, clickedItem.getObjectId());
-        a.put("parent", clickedItem.getObjectId());
+        Answer a = new Answer(inputText, clickedItem.getObjectId(), BloQueryApplication.getSharedDataSource().getCurrentUser().getObjectId());
+        //a.put("parent", clickedItem.getObjectId());
         a.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

@@ -14,9 +14,10 @@ public class Answer extends ParseObject {
 
     public Answer(){}
 
-    public Answer(String answer, String parent){
+    public Answer(String answer, String parent, String user){
         setAnswer(answer);
         setParent(parent);
+        setParentUser(user);
     }
 
     public String getAnswer() {
@@ -27,6 +28,10 @@ public class Answer extends ParseObject {
         return getString("parent");
     }
 
+    public String getParentUser() {
+        return getString("parentUser");
+    }
+
     public void setAnswer(String answer) {
         put("answer", answer);
     }
@@ -34,6 +39,8 @@ public class Answer extends ParseObject {
     public void setParent(String question){
         put("parent", question);
     }
+
+    public void setParentUser(String user) { put("parentUser", user);}
 
 
 

@@ -69,6 +69,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     Fragment f = getFragmentManager().findFragmentByTag("Question");
                     QuestionsFragment qf = (QuestionsFragment) f;
                     qf.notifyAdapter();
+
+                    f = getFragmentManager().findFragmentByTag("Answer");
+                    if(f != null){
+                        AnswersFragment af = (AnswersFragment) f;
+                        af.notifyAdapter();
+                    }
                 }
             }
         });
