@@ -22,6 +22,7 @@ public class QuestionsFragment extends Fragment implements QuestionItemAdapter.D
 
     public static interface Delegate {
         public void onItemClicked(QuestionItemAdapter itemAdapter, Question questionItem);
+        public void onUserClicked(QuestionItemAdapter itemAdapter, Question questionItem);
     }
 
     QuestionItemAdapter questionItemAdapter;
@@ -65,6 +66,11 @@ public class QuestionsFragment extends Fragment implements QuestionItemAdapter.D
     @Override
     public void onItemClicked(QuestionItemAdapter itemAdapter, Question questionItem) {
         listener.onItemClicked(itemAdapter, questionItem);
+    }
+
+    @Override
+    public void onUserClicked(QuestionItemAdapter itemAdapter, Question questionItem) {
+        listener.onUserClicked(itemAdapter, questionItem);
     }
 
     public void notifyAdapter(){

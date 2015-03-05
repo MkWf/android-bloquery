@@ -35,6 +35,7 @@ public class DataSource {
     private List<Question> questions;
     private List<Answer> answers;
     private BloQueryUser currentUser;
+    private BloQueryUser viewedUser;
 
     public DataSource() {
         executorService = Executors.newSingleThreadExecutor();
@@ -54,6 +55,12 @@ public class DataSource {
     }
     public BloQueryUser getCurrentUser(){
         return this.currentUser;
+    }
+    public void setCurrentViewedUser(BloQueryUser user){
+        this.viewedUser = (BloQueryUser)user;
+    }
+    public BloQueryUser getCurrentViewedUser(){
+        return this.viewedUser;
     }
     public void setQuestions(List<Question> questions){
         this.questions = questions;

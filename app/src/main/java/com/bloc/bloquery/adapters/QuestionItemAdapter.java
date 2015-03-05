@@ -31,6 +31,7 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
 
     public static interface Delegate {
         public void onItemClicked(QuestionItemAdapter itemAdapter, Question questionItem);
+        public void onUserClicked(QuestionItemAdapter itemAdapter, Question questionItem);
     }
 
     private WeakReference<Delegate> delegate;
@@ -78,6 +79,7 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
             user = (ImageButton) itemView.findViewById(R.id.question_item_user);
 
             itemView.setOnClickListener(this);
+            user.setOnClickListener(this);
         }
 
         void update(Question questionItem) {
@@ -121,7 +123,15 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
 
         @Override
         public void onClick(View view) {
-            getDelegate().onItemClicked(QuestionItemAdapter.this, questionItem);
+            switch(view.getId()){
+                case R.id.question_item_user:
+                    getDelegate().onUserClicked(QuestionItemAdapter.this, questionItem);
+                    break;
+                default:
+                    getDelegate().onItemClicked(QuestionItemAdapter.this, questionItem);
+                    break;
+            }
+
         }
     }
 

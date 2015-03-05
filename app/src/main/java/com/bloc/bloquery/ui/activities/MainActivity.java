@@ -15,11 +15,13 @@ import com.bloc.bloquery.api.DataSource;
 import com.bloc.bloquery.ui.fragments.AnswersDialogFragment;
 import com.bloc.bloquery.ui.fragments.AnswersFragment;
 import com.bloc.bloquery.ui.fragments.ProfileFragment;
+import com.bloc.bloquery.ui.fragments.ProfileViewFragment;
 import com.bloc.bloquery.ui.fragments.QuestionsDialogFragment;
 import com.bloc.bloquery.ui.fragments.QuestionsFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.models.Answer;
 import com.parse.models.BloQueryUser;
@@ -93,8 +95,31 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
     }
 
     @Override
+    public void onUserClicked(QuestionItemAdapter itemAdapter, Question questionItem) {
+        ParseQuery<ParseUser> query = BloQueryUser.getQuery();
+        query.whereEqualTo("objectId", questionItem.getParent());
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> parseUsers, ParseException e) {
+                BloQueryApplication.getSharedDataSource().setCurrentViewedUser((BloQueryUser) parseUsers.get(0));
+
+                ProfileViewFragment pvf = new ProfileViewFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .hide(currentFragment)
+                        .addToBackStack(null)
+                        .add(R.id.fl_activity_main, pvf, "ProfileView")
+                        .commit();
+                profileIcons();
+            }
+        });
+    }
+
+
+    @Override
     public void onBackPressed() {
-        if(getFragmentManager().findFragmentByTag("Profile") != null && getFragmentManager().findFragmentByTag("Profile").isVisible()){
+        if((getFragmentManager().findFragmentByTag("Profile") != null && getFragmentManager().findFragmentByTag("Profile").isVisible()) ||
+                getFragmentManager().findFragmentByTag("ProfileView") != null && getFragmentManager().findFragmentByTag("ProfileView").isVisible()){
             getFragmentManager().popBackStackImmediate();
             if(getFragmentManager().findFragmentByTag("Question").isVisible()){
                 currentFragment = getFragmentManager().findFragmentByTag("Question");
