@@ -65,6 +65,7 @@ public class DataSource {
     public void setQuestions(List<Question> questions){
         this.questions = questions;
     }
+    public void setAnswers(List<Answer> answers) { this.answers = answers; }
 
     void fetchQuestions() {
         ParseQuery<Question> query = ParseQuery.getQuery("Question");

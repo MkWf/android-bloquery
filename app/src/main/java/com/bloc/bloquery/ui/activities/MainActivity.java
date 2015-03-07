@@ -167,6 +167,36 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                         .add(R.id.fl_activity_main, pf, "Profile")
                         .commit();
                 currentFragment = pf;
+                break;
+            case R.id.action_sortby_date:
+                ParseQuery<Answer> queryDate = ParseQuery.getQuery(Answer.class);
+                queryDate.orderByDescending("createdAt");
+                queryDate.findInBackground(new FindCallback<Answer>() {
+                    @Override
+                    public void done(List<Answer> answers, ParseException e) {
+                        BloQueryApplication.getSharedDataSource().setAnswers(answers);
+
+                        Fragment f = getFragmentManager().findFragmentByTag("Answer");
+                        AnswersFragment af = (AnswersFragment) f;
+                        af.notifyAdapter();
+                    }
+                });
+                break;
+            case R.id.action_sortby_upvote:
+                ParseQuery<Answer> queryVote = ParseQuery.getQuery(Answer.class);
+                queryVote.orderByDescending("votes");
+                queryVote.findInBackground(new FindCallback<Answer>() {
+                    @Override
+                    public void done(List<Answer> answers, ParseException e) {
+                        BloQueryApplication.getSharedDataSource().setAnswers(answers);
+
+                        Fragment f = getFragmentManager().findFragmentByTag("Answer");
+                        AnswersFragment af = (AnswersFragment) f;
+                        af.notifyAdapter();
+                    }
+                });
+                break;
+
         }
 
         return super.onOptionsItemSelected(item);
