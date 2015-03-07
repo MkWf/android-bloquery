@@ -20,12 +20,29 @@ import com.parse.ParseUser;
 import com.parse.models.Answer;
 import com.parse.models.BloQueryUser;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
  * Created by Mark on 2/27/2015.
  */
 public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.ItemAdapterViewHolder> {
+
+    public static interface Delegate {
+        public void onUpvoteClicked(AnswersItemAdapter itemAdapter, Answer answerItem);
+    }
+
+    private WeakReference<Delegate> delegate;
+
+    public Delegate getDelegate() {
+        if (delegate == null) {
+            return null;
+        }
+        return delegate.get();
+    }
+    public void setDelegate(Delegate delegate) {
+        this.delegate = new WeakReference<Delegate>(delegate);
+    }
 
     @Override
     public ItemAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {
@@ -44,13 +61,14 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
         return BloQueryApplication.getSharedDataSource().getAnswers().size();
     }
 
-    class ItemAdapterViewHolder extends RecyclerView.ViewHolder {
+    class ItemAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView answer;
         TextView votes;
         ImageButton upvote;
         ImageButton moreOptions;
         ImageButton user;
+        Answer answerItem;
 
         public ItemAdapterViewHolder(View itemView) {
             super(itemView);
@@ -60,11 +78,15 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
             upvote = (ImageButton) itemView.findViewById(R.id.answer_item_upvote);
             moreOptions = (ImageButton) itemView.findViewById(R.id.answer_item_more_options);
             user = (ImageButton) itemView.findViewById(R.id.answer_item_user);
+
+            upvote.setOnClickListener(this);
         }
 
         void update(Answer answerItem) {
+            this.answerItem = answerItem;
+
             answer.setText(answerItem.getAnswer());
-            votes.setText("100 votes");
+            votes.setText(Integer.toString(answerItem.getVotes()) + " votes");
 
             ParseQuery<ParseUser> query = BloQueryUser.getQuery();
             query.whereEqualTo("objectId", answerItem.getParentUser());
@@ -98,6 +120,15 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
                     });
                 }
             });
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch(v.getId()) {
+                case R.id.answer_item_upvote:
+                    getDelegate().onUpvoteClicked(AnswersItemAdapter.this, answerItem);
+                    break;
+            }
         }
     }
 }

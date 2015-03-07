@@ -10,13 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bloc.bloquery.BloQueryApplication;
 import com.bloc.bloquery.R;
 import com.bloc.bloquery.adapters.AnswersItemAdapter;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.models.Answer;
+
+import org.json.JSONArray;
+
+import java.util.HashMap;
 
 /**
  * Created by Mark on 2/27/2015.
  */
-public class AnswersFragment extends Fragment {
+public class AnswersFragment extends Fragment implements AnswersItemAdapter.Delegate {
     AnswersItemAdapter itemAdapter;
     RecyclerView recyclerView;
 
@@ -24,6 +32,7 @@ public class AnswersFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         itemAdapter = new AnswersItemAdapter();
+        itemAdapter.setDelegate(this);
     }
 
     @Nullable
@@ -45,5 +54,35 @@ public class AnswersFragment extends Fragment {
 
     public void notifyAdapter(){
         itemAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onUpvoteClicked(AnswersItemAdapter itemAdapter, final Answer answerItem) {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("objectId", answerItem.getObjectId());
+        params.put("userId", BloQueryApplication.getSharedDataSource().getCurrentUser().getObjectId());
+        ParseCloud.callFunctionInBackground("hasUserVotedAlready", params, new FunctionCallback<Boolean>() {
+            @Override
+            public void done(Boolean hasVoted, com.parse.ParseException e) {
+                if(hasVoted){
+                    answerItem.setVotes(answerItem.getVotes() - 1);
+                    JSONArray array = answerItem.getJSONArray("usersVoted");
+                    array.remove
+                }
+            }
+        });
+
+
+        /*answerItem.increment("votes");
+        answerItem.addUnique("usersVoted", BloQueryApplication.getSharedDataSource().getCurrentUser());
+        answerItem.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                //Fragment f = getFragmentManager().findFragmentByTag("Answer");
+                //QuestionsFragment qf = (QuestionsFragment) f;
+                //qf.notifyAdapter();
+                notifyAdapter();
+            }
+        });*/
     }
 }

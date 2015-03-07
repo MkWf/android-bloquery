@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "BloQuery": {
+            "applicationId": "Q72zpvyE5xj4tOu90i4tKGlqnIkBjKFClTNdJ3M8", 
+            "masterKey": "gyMEAdnpyE2Acn1OXHamebNF6nevQM2YVQfzuBEj"
+        }, 
+        "_default": {
+            "link": "BloQuery"
+        }
+    }
+}
