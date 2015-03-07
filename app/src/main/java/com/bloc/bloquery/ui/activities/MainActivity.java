@@ -177,6 +177,8 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         menu.findItem(R.id.action_question).setVisible(true);
         menu.findItem(R.id.action_answer).setVisible(false);
         menu.findItem(R.id.action_profile).setVisible(true);
+        menu.findItem(R.id.action_sortby_date).setVisible(false);
+        menu.findItem(R.id.action_sortby_upvote).setVisible(false);
     }
 
     public void answerIcons(){
@@ -184,6 +186,8 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         menu.findItem(R.id.action_question).setVisible(false);
         menu.findItem(R.id.action_answer).setVisible(true);
         menu.findItem(R.id.action_profile).setVisible(true);
+        menu.findItem(R.id.action_sortby_date).setVisible(true);
+        menu.findItem(R.id.action_sortby_upvote).setVisible(true);
     }
 
     public void profileIcons(){
@@ -191,6 +195,8 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         menu.findItem(R.id.action_question).setVisible(false);
         menu.findItem(R.id.action_answer).setVisible(false);
         menu.findItem(R.id.action_profile).setVisible(false);
+        menu.findItem(R.id.action_sortby_date).setVisible(false);
+        menu.findItem(R.id.action_sortby_upvote).setVisible(false);
     }
 
     @Override

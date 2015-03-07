@@ -21,4 +21,14 @@
         android:visible="true"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/action_sortby_date"
+        android:title="Sort answers by date"
+        android:visible="false"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_sortby_upvote"
+        android:title="Sort answers by upvote"
+        android:visible="false"
+        app:showAsAction="never"/>
+
 </menu>

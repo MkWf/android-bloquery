@@ -13,13 +13,9 @@ import android.view.ViewGroup;
 import com.bloc.bloquery.BloQueryApplication;
 import com.bloc.bloquery.R;
 import com.bloc.bloquery.adapters.AnswersItemAdapter;
-import com.parse.FunctionCallback;
-import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 import com.parse.models.Answer;
-
-import org.json.JSONArray;
-
-import java.util.HashMap;
 
 /**
  * Created by Mark on 2/27/2015.
@@ -58,7 +54,7 @@ public class AnswersFragment extends Fragment implements AnswersItemAdapter.Dele
 
     @Override
     public void onUpvoteClicked(AnswersItemAdapter itemAdapter, final Answer answerItem) {
-        HashMap<String, Object> params = new HashMap<String, Object>();
+        /*HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("objectId", answerItem.getObjectId());
         params.put("userId", BloQueryApplication.getSharedDataSource().getCurrentUser().getObjectId());
         ParseCloud.callFunctionInBackground("hasUserVotedAlready", params, new FunctionCallback<Boolean>() {
@@ -67,13 +63,12 @@ public class AnswersFragment extends Fragment implements AnswersItemAdapter.Dele
                 if(hasVoted){
                     answerItem.setVotes(answerItem.getVotes() - 1);
                     JSONArray array = answerItem.getJSONArray("usersVoted");
-                    array.remove
                 }
             }
-        });
+        });*/
 
 
-        /*answerItem.increment("votes");
+        answerItem.increment("votes");
         answerItem.addUnique("usersVoted", BloQueryApplication.getSharedDataSource().getCurrentUser());
         answerItem.saveInBackground(new SaveCallback() {
             @Override
@@ -83,6 +78,6 @@ public class AnswersFragment extends Fragment implements AnswersItemAdapter.Dele
                 //qf.notifyAdapter();
                 notifyAdapter();
             }
-        });*/
+        });
     }
 }
