@@ -4,6 +4,6 @@
     <color name="primary_dark">#138FA5</color>
     <color name="accent">#FFFF7B</color>
     <color name="windowBackground">@color/black</color>
-
+    <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
 </resources>

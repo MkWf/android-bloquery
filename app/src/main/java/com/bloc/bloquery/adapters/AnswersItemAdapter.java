@@ -108,7 +108,7 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
                                 int photoW = bmOptions.outWidth;
                                 int photoH = bmOptions.outHeight;
 
-                                int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+                                int scaleFactor = Math.max(photoW / targetW, photoH / targetH);
 
                                 bmOptions.inJustDecodeBounds = false;
                                 bmOptions.inSampleSize = scaleFactor;

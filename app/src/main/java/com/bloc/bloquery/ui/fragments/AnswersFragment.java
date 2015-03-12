@@ -13,9 +13,12 @@ import android.view.ViewGroup;
 import com.bloc.bloquery.BloQueryApplication;
 import com.bloc.bloquery.R;
 import com.bloc.bloquery.adapters.AnswersItemAdapter;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
 import com.parse.models.Answer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Mark on 2/27/2015.
@@ -49,26 +52,60 @@ public class AnswersFragment extends Fragment implements AnswersItemAdapter.Dele
     }
 
     public void notifyAdapter(){
-        itemAdapter.notifyDataSetChanged();
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                itemAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public void onUpvoteClicked(AnswersItemAdapter itemAdapter, final Answer answerItem) {
-        /*HashMap<String, Object> params = new HashMap<String, Object>();
+        HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("objectId", answerItem.getObjectId());
         params.put("userId", BloQueryApplication.getSharedDataSource().getCurrentUser().getObjectId());
-        ParseCloud.callFunctionInBackground("hasUserVotedAlready", params, new FunctionCallback<Boolean>() {
+        ParseCloud.callFunctionInBackground("setUserVote", params, new FunctionCallback< Map<String, Object> >() {
             @Override
-            public void done(Boolean hasVoted, com.parse.ParseException e) {
-                if(hasVoted){
-                    answerItem.setVotes(answerItem.getVotes() - 1);
-                    JSONArray array = answerItem.getJSONArray("usersVoted");
+            public void done(Map<String, Object> mapObject, com.parse.ParseException e) {
+                if(e == null){
+                    //Fragment f = getFragmentManager().findFragmentByTag("Answer");
+                    //AnswersFragment af = (AnswersFragment) f;
+                    answerItem.setVotes((Integer)mapObject.get("result"));
+                    notifyAdapter();
                 }
             }
-        });*/
+        });
 
 
-        answerItem.increment("votes");
+        /*ParseQuery<Answer> query = ParseQuery.getQuery(Answer.class);
+        query.whereEqualTo("objectId", answerItem.getObjectId());
+        query.whereContains("usersVoted", BloQueryApplication.getSharedDataSource().getCurrentUser().getObjectId());
+        query.findInBackground(new FindCallback<Void>() {
+            @Override
+            public void done(Void v, ParseException e) {
+                            //Fragment f = getFragmentManager().findFragmentByTag("Answer");
+                            //QuestionsFragment qf = (QuestionsFragment) f;
+                            //qf.notifyAdapter();
+                            notifyAdapter();
+                }
+                else{
+                    answerItem.setVotes(answerItem.getVotes() - 1);
+                    //answerItem.
+                    answerItem.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            //Fragment f = getFragmentManager().findFragmentByTag("Answer");
+                            //QuestionsFragment qf = (QuestionsFragment) f;
+                            //qf.notifyAdapter();
+                            notifyAdapter();
+                        }
+                    });
+                }
+
+            }
+        });
+
+        /*nswerItem.increment("votes");
         answerItem.addUnique("usersVoted", BloQueryApplication.getSharedDataSource().getCurrentUser());
         answerItem.saveInBackground(new SaveCallback() {
             @Override
@@ -78,6 +115,6 @@ public class AnswersFragment extends Fragment implements AnswersItemAdapter.Dele
                 //qf.notifyAdapter();
                 notifyAdapter();
             }
-        });
+        });*/
     }
 }

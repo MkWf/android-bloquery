@@ -196,7 +196,6 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                     }
                 });
                 break;
-
         }
 
         return super.onOptionsItemSelected(item);
