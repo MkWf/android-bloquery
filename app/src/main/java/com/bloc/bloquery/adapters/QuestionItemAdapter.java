@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bloc.bloquery.BloQueryApplication;
@@ -67,8 +66,8 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
 
         TextView question;
         TextView answers;
-        ImageView rating;
-        ImageButton user;
+        ImageButton userImage;
+        TextView userName;
         Question questionItem;
 
         public ItemAdapterViewHolder(View itemView) {
@@ -76,10 +75,11 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
 
             question = (TextView) itemView.findViewById(R.id.question_item_question);
             answers = (TextView) itemView.findViewById(R.id.queston_item_answers);
-            user = (ImageButton) itemView.findViewById(R.id.question_item_user);
+            userImage = (ImageButton) itemView.findViewById(R.id.question_item_user_image);
+            userName = (TextView) itemView.findViewById(R.id.question_item_user_name);
 
             itemView.setOnClickListener(this);
-            user.setOnClickListener(this);
+            userImage.setOnClickListener(this);
         }
 
         void update(Question questionItem) {
@@ -92,13 +92,14 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
             query.findInBackground(new FindCallback<ParseUser>() {
                 @Override
                 public void done(List<ParseUser> parseUsers, ParseException e) {
+                    userName.setText(parseUsers.get(0).getUsername());
                     ParseFile file = (ParseFile) parseUsers.get(0).get("image");
                     file.getDataInBackground(new GetDataCallback() {
                         @Override
                         public void done(byte[] bytes, ParseException e) {
                             if(e == null){
-                                int targetW = user.getWidth();
-                                int targetH = user.getHeight();
+                                int targetW = userImage.getWidth();
+                                int targetH = userImage.getHeight();
 
                                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                                 bmOptions.inJustDecodeBounds = true;
@@ -113,7 +114,7 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
                                 bmOptions.inSampleSize = scaleFactor;
                                 //bmOptions.inPurgeable = true;
 
-                                user.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions));
+                                userImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions));
                             }
                         }
                     });
@@ -124,7 +125,7 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
         @Override
         public void onClick(View view) {
             switch(view.getId()){
-                case R.id.question_item_user:
+                case R.id.question_item_user_image:
                     getDelegate().onUserClicked(QuestionItemAdapter.this, questionItem);
                     break;
                 default:
