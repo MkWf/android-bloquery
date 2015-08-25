@@ -66,7 +66,6 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
         TextView answer;
         TextView votes;
         ImageButton upvote;
-        ImageButton moreOptions;
         ImageButton user;
         Answer answerItem;
 
@@ -76,7 +75,6 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
             answer = (TextView) itemView.findViewById(R.id.answer_item_answer);
             votes = (TextView) itemView.findViewById(R.id.answer_item_votes);
             upvote = (ImageButton) itemView.findViewById(R.id.answer_item_upvote);
-            moreOptions = (ImageButton) itemView.findViewById(R.id.answer_item_more_options);
             user = (ImageButton) itemView.findViewById(R.id.answer_item_user);
 
             upvote.setOnClickListener(this);

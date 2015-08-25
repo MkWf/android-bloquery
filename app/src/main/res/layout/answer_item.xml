@@ -7,6 +7,8 @@
         android:id="@+id/answer_item_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/material_blue_grey_950"
+        android:layout_marginLeft="10dp"
         android:layout_alignParentTop="true"/>
 
     <ImageButton
@@ -28,25 +30,24 @@
         android:layout_alignBottom="@id/answer_item_user"/>
 
     <ImageButton
-        android:id="@+id/answer_item_more_options"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:contentDescription="@string/more_options_menu"
-        android:layout_below="@id/answer_item_answer"
-        android:background="@color/transparent"
-        android:layout_marginLeft="10dp"
-        android:src="@mipmap/answer_item_more_option"/>
-
-    <ImageButton
         android:id="@+id/answer_item_upvote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/answer_item_answer"
         android:contentDescription="@string/upvote"
-        android:layout_toLeftOf="@id/answer_item_more_options"
         android:background="@color/transparent"
         android:layout_alignBottom="@id/answer_item_user"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
         android:src="@mipmap/answer_item_upvote"/>
+
+    <View
+        android:id="@+id/point_item_horizontal_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/answer_item_upvote"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"/>
+
 
 </RelativeLayout>
