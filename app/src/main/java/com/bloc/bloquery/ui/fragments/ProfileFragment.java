@@ -117,24 +117,29 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Uri selectedImage = data.getData();
-        userImage.setImageURI(selectedImage);
+        if(requestCode == PICK_IMAGE && data != null) {
+            Uri selectedImage = data.getData();
+            userImage.setImageURI(selectedImage);
 
-
-        try {
-            final ParseFile image = new ParseFile("profile image", readBytes(selectedImage));
-            image.saveInBackground(
-                new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        BloQueryApplication.getSharedDataSource().getCurrentUser().setProfileImage(image);
-                        BloQueryApplication.getSharedDataSource().getCurrentUser().saveInBackground();
-                    }
-                }
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                final ParseFile image = new ParseFile("profile image", readBytes(selectedImage));
+                image.saveInBackground(
+                        new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                BloQueryApplication.getSharedDataSource().getCurrentUser().setProfileImage(image);
+                                BloQueryApplication.getSharedDataSource().getCurrentUser().saveInBackground();
+                            }
+                        }
+                );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+
+
+
         /*Uri selectedImage = data.getData();
         String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
