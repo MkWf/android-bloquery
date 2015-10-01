@@ -96,12 +96,8 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
 
     @Override
     public void onUserClicked(QuestionItemAdapter itemAdapter, Question questionItem) {
-        ParseQuery<ParseUser> query = BloQueryUser.getQuery();
-        query.whereEqualTo("objectId", questionItem.getParent());
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> parseUsers, ParseException e) {
-                BloQueryApplication.getSharedDataSource().setCurrentViewedUser((BloQueryUser) parseUsers.get(0));
+
+                BloQueryApplication.getSharedDataSource().setCurrentViewedUser((BloQueryUser) questionItem.getQuestionOwner());
 
                 ProfileViewFragment pvf = new ProfileViewFragment();
                 getFragmentManager()
@@ -111,8 +107,6 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                         .add(R.id.fl_activity_main, pvf, "ProfileView")
                         .commit();
                 profileIcons();
-            }
-        });
     }
 
 
@@ -230,8 +224,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
 
     @Override
     public void onSubmitQuestionDialog(String inputText) {
-        Question q = new Question(inputText);
-        q.put("parent", BloQueryApplication.getSharedDataSource().getCurrentUser().getObjectId());
+        Question q = new Question(inputText, ParseUser.getCurrentUser());
         q.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

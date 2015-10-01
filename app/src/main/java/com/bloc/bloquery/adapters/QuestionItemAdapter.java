@@ -11,17 +11,13 @@ import android.widget.TextView;
 import com.bloc.bloquery.BloQueryApplication;
 import com.bloc.bloquery.R;
 import com.bloc.bloquery.api.DataSource;
-import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.models.BloQueryUser;
 import com.parse.models.Question;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 /**
  * Created by Mark on 2/26/2015.
@@ -87,36 +83,31 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
             question.setText(questionItem.getQuestion());
             answers.setText(Integer.toString(questionItem.getAnswers()) + " answers");
 
-            ParseQuery<ParseUser> query = BloQueryUser.getQuery();
-            query.whereEqualTo("objectId", questionItem.getParent());
-            query.findInBackground(new FindCallback<ParseUser>() {
+            ParseUser questionOwner = questionItem.getQuestionOwner();
+
+            userName.setText(questionOwner.getUsername());
+            ParseFile file = (ParseFile) questionOwner.get("image");
+            file.getDataInBackground(new GetDataCallback() {
                 @Override
-                public void done(List<ParseUser> parseUsers, ParseException e) {
-                    userName.setText(parseUsers.get(0).getUsername());
-                    ParseFile file = (ParseFile) parseUsers.get(0).get("image");
-                    file.getDataInBackground(new GetDataCallback() {
-                        @Override
-                        public void done(byte[] bytes, ParseException e) {
-                            if(e == null){
-                                int targetW = userImage.getWidth();
-                                int targetH = userImage.getHeight();
+                public void done(byte[] bytes, ParseException e) {
+                    if (e == null) {
+                        int targetW = userImage.getWidth();
+                        int targetH = userImage.getHeight();
 
-                                BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-                                bmOptions.inJustDecodeBounds = true;
-                                BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions);
+                        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                        bmOptions.inJustDecodeBounds = true;
+                        BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions);
 
-                                int photoW = bmOptions.outWidth;
-                                int photoH = bmOptions.outHeight;
+                        int photoW = bmOptions.outWidth;
+                        int photoH = bmOptions.outHeight;
 
-                                int scaleFactor = Math.max(photoW / targetW, photoH / targetH);
+                        int scaleFactor = Math.max(photoW / targetW, photoH / targetH);
 
-                                bmOptions.inJustDecodeBounds = false;
-                                bmOptions.inSampleSize = scaleFactor;
+                        bmOptions.inJustDecodeBounds = false;
+                        bmOptions.inSampleSize = scaleFactor;
 
-                                userImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions));
-                            }
-                        }
-                    });
+                        userImage.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions));
+                    }
                 }
             });
         }
