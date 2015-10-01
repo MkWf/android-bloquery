@@ -2,6 +2,7 @@ package com.parse.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 
@@ -14,10 +15,10 @@ public class Answer extends ParseObject {
 
     public Answer(){}
 
-    public Answer(String answer, String parent, String user){
+    public Answer(String answer, Question question, ParseUser answerOwner){
         setAnswer(answer);
-        setParent(parent);
-        setParentUser(user);
+        setQuestion(question);
+        setAnswerOwner(answerOwner);
         setVotes(0);
         put("usersVoted", new JSONArray());
     }
@@ -42,11 +43,13 @@ public class Answer extends ParseObject {
         put("answer", answer);
     }
 
-    public void setParent(String question){
-        put("parent", question);
+    public void setAnswerOwner(ParseUser user){
+        put("answerOwner", user);
     }
 
-    public void setParentUser(String user) { put("parentUser", user);}
+    public ParseUser getAnswerOwner() { return getParseUser("answerOwner"); }
+
+    public void setQuestion(Question question) { put("question", question);}
 
     public void setVotes(int votes) {put("votes", votes);}
 

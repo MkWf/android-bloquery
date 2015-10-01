@@ -72,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
     @Override
     public void onItemClicked(QuestionItemAdapter itemAdapter, Question questionItem) {
         clickedItem = questionItem;
-        BloQueryApplication.getSharedDataSource().fetchAnswers(questionItem.getObjectId(), new DataSource.Callback() {
+        BloQueryApplication.getSharedDataSource().fetchAnswers(questionItem, new DataSource.Callback() {
             @Override
             public void onSuccess() {
                 AnswersFragment af = new AnswersFragment();
@@ -255,12 +255,12 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
             }
         });
 
-        Answer a = new Answer(inputText, clickedItem.getObjectId(), BloQueryApplication.getSharedDataSource().getCurrentUser().getObjectId());
+        Answer a = new Answer(inputText, clickedItem, BloQueryApplication.getSharedDataSource().getCurrentUser());
         //a.put("parent", clickedItem.getObjectId());
         a.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                BloQueryApplication.getSharedDataSource().fetchAnswers(clickedItem.getObjectId(), new DataSource.Callback() {
+                BloQueryApplication.getSharedDataSource().fetchAnswers(clickedItem, new DataSource.Callback() {
                     @Override
                     public void onSuccess() {
                         Fragment f = getFragmentManager().findFragmentByTag("Answer");

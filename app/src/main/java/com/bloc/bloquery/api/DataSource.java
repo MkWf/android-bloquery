@@ -78,13 +78,13 @@ public class DataSource {
         });
     }
 
-    public void fetchAnswers(final String questionId, final Callback result){
+    public void fetchAnswers(final Question question, final Callback result){
         final Handler callbackThreadHandler = new Handler();
         submitTask(new Runnable() {
             @Override
             public void run() {
                 ParseQuery<Answer> query = ParseQuery.getQuery("Answer");
-                query.whereEqualTo("parent", questionId);
+                query.whereEqualTo("question", question);
                 query.orderByDescending("createdAt");
                 query.setLimit(10);
                 query.findInBackground(new FindCallback<Answer>() {
