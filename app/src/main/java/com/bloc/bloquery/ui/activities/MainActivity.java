@@ -149,6 +149,24 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                 AnswersDialogFragment adf = new AnswersDialogFragment();
                 adf.show(getFragmentManager(), "Answer");
                 break;
+            case R.id.action_refresh:
+                if(currentFragment instanceof QuestionsFragment){
+                    BloQueryApplication.getSharedDataSource().refreshQuestions(new DataSource.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            ((QuestionsFragment) currentFragment).notifyAdapter();
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+
+                        }
+                    });
+
+                }else{
+
+                }
+                break;
             case R.id.action_profile:
                 profileIcons();
 
@@ -202,6 +220,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         menu.findItem(R.id.action_question).setVisible(true);
         menu.findItem(R.id.action_answer).setVisible(false);
         menu.findItem(R.id.action_profile).setVisible(true);
+        menu.findItem(R.id.action_refresh).setVisible(true);
         menu.findItem(R.id.action_sortby_date).setVisible(false);
         menu.findItem(R.id.action_sortby_upvote).setVisible(false);
     }
@@ -210,6 +229,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.action_question).setVisible(false);
         menu.findItem(R.id.action_answer).setVisible(true);
+        menu.findItem(R.id.action_refresh).setVisible(true);
         menu.findItem(R.id.action_profile).setVisible(true);
         menu.findItem(R.id.action_sortby_date).setVisible(true);
         menu.findItem(R.id.action_sortby_upvote).setVisible(true);
@@ -219,6 +239,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         Menu menu = toolbar.getMenu();
         menu.findItem(R.id.action_question).setVisible(false);
         menu.findItem(R.id.action_answer).setVisible(false);
+        menu.findItem(R.id.action_refresh).setVisible(false);
         menu.findItem(R.id.action_profile).setVisible(false);
         menu.findItem(R.id.action_sortby_date).setVisible(false);
         menu.findItem(R.id.action_sortby_upvote).setVisible(false);

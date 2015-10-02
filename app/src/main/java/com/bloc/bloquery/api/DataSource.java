@@ -67,13 +67,36 @@ public class DataSource {
     }
     public void setAnswers(List<Answer> answers) { this.answers = answers; }
 
-    void fetchQuestions() {
+    public void fetchQuestions() {
         ParseQuery<Question> query = ParseQuery.getQuery("Question");
         query.orderByDescending("createdAt");
         query.setLimit(10);
         query.findInBackground(new FindCallback<Question>() {
             public void done(List<Question> questionsList, ParseException e) {
                 questions = questionsList;
+            }
+        });
+    }
+
+    public void refreshQuestions(final Callback result){
+        final Handler callbackThreadHandler = new Handler();
+        submitTask(new Runnable() {
+            @Override
+            public void run() {
+                ParseQuery<Question> query = ParseQuery.getQuery("Question");
+                query.orderByDescending("createdAt");
+                query.setLimit(10);
+                query.findInBackground(new FindCallback<Question>() {
+                    public void done(List<Question> questionsList, ParseException e) {
+                        questions = questionsList;
+                        callbackThreadHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                result.onSuccess();
+                            }
+                        });
+                    }
+                });
             }
         });
     }

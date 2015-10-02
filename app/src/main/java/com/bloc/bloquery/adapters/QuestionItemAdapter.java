@@ -85,7 +85,13 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
 
             ParseUser questionOwner = questionItem.getQuestionOwner();
 
-            userName.setText(questionOwner.getUsername());
+            String name = "";
+            try{
+                name = questionOwner.fetchIfNeeded().getUsername();
+            }catch(ParseException e){
+                e.printStackTrace();
+            }
+            userName.setText(name);
             ParseFile file = (ParseFile) questionOwner.get("image");
             file.getDataInBackground(new GetDataCallback() {
                 @Override
