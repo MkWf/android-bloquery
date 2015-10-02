@@ -164,7 +164,17 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                     });
 
                 }else{
+                    BloQueryApplication.getSharedDataSource().fetchAnswers(clickedItem, new DataSource.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            ((AnswersFragment)currentFragment).notifyAdapter();
+                        }
 
+                        @Override
+                        public void onError(String errorMessage) {
+
+                        }
+                    });
                 }
                 break;
             case R.id.action_profile:
