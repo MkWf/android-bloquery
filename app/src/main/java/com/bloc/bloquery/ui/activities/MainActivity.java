@@ -97,16 +97,16 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
     @Override
     public void onUserClicked(QuestionItemAdapter itemAdapter, Question questionItem) {
 
-                BloQueryApplication.getSharedDataSource().setCurrentViewedUser((BloQueryUser) questionItem.getQuestionOwner());
+        BloQueryApplication.getSharedDataSource().setCurrentViewedUser((BloQueryUser) questionItem.getQuestionOwner());
 
-                ProfileViewFragment pvf = new ProfileViewFragment();
-                getFragmentManager()
-                        .beginTransaction()
-                        .hide(currentFragment)
-                        .addToBackStack(null)
-                        .add(R.id.fl_activity_main, pvf, "ProfileView")
-                        .commit();
-                profileIcons();
+        ProfileViewFragment pvf = new ProfileViewFragment();
+        getFragmentManager()
+                .beginTransaction()
+                .hide(currentFragment)
+                .addToBackStack(null)
+                .add(R.id.fl_activity_main, pvf, "ProfileView")
+                .commit();
+        profileIcons();
     }
 
 
@@ -164,6 +164,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                 break;
             case R.id.action_sortby_date:
                 ParseQuery<Answer> queryDate = ParseQuery.getQuery(Answer.class);
+                queryDate.whereEqualTo("question", clickedItem);
                 queryDate.orderByDescending("createdAt");
                 queryDate.findInBackground(new FindCallback<Answer>() {
                     @Override
@@ -178,6 +179,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                 break;
             case R.id.action_sortby_upvote:
                 ParseQuery<Answer> queryVote = ParseQuery.getQuery(Answer.class);
+                queryVote.whereEqualTo("question", clickedItem);
                 queryVote.orderByDescending("votes");
                 queryVote.findInBackground(new FindCallback<Answer>() {
                     @Override

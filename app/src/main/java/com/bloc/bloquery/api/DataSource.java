@@ -85,7 +85,7 @@ public class DataSource {
             public void run() {
                 ParseQuery<Answer> query = ParseQuery.getQuery("Answer");
                 query.whereEqualTo("question", question);
-                query.orderByDescending("createdAt");
+                query.orderByDescending("votes");
                 query.setLimit(10);
                 query.findInBackground(new FindCallback<Answer>() {
                     public void done(List<Answer> answersList, ParseException e) {
