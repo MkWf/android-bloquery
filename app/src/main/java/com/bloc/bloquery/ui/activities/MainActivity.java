@@ -59,14 +59,18 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        BloQueryApplication.getSharedDataSource().setCurrentUser((BloQueryUser)BloQueryUser.getCurrentUser());
+        if(resultCode == 0){
+            finish();
+        }else {
+            BloQueryApplication.getSharedDataSource().setCurrentUser((BloQueryUser) BloQueryUser.getCurrentUser());
 
-        QuestionsFragment qf = new QuestionsFragment();
-        currentFragment = qf;
-        getFragmentManager()
-                .beginTransaction()
-                .add(R.id.fl_activity_main, qf, "Question")
-                .commit();
+            QuestionsFragment qf = new QuestionsFragment();
+            currentFragment = qf;
+            getFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fl_activity_main, qf, "Question")
+                    .commit();
+        }
     }
 
     @Override
