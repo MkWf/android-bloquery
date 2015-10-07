@@ -15,6 +15,7 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.models.Answer;
+import com.parse.models.BloQueryUser;
 
 import java.lang.ref.WeakReference;
 
@@ -87,7 +88,7 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
                 votes.setTextColor(BloQueryApplication.getSharedInstance().getResources().getColor(R.color.black));
             }
 
-            ParseFile file = (ParseFile) answerItem.getAnswerOwner().get("image");
+            ParseFile file = (ParseFile) answerItem.getAnswerOwner().get(BloQueryUser.IMAGE);
             file.getDataInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] bytes, ParseException e) {

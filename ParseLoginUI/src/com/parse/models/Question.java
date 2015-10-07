@@ -11,6 +11,10 @@ import com.parse.ParseUser;
 @ParseClassName("Question")
 public class Question extends ParseObject {
 
+    public static String QUESTION = "question";
+    public static String QUESTION_OWNER = "questionOwner";
+    public static String ANSWERS = "answers";
+
     public Question(String question, ParseUser questionOwner){
         setQuestion(question);
         setAnswers(0);
@@ -18,35 +22,28 @@ public class Question extends ParseObject {
     }
 
     public String getQuestion() {
-        return getString("question");
+        return getString(QUESTION);
     }
 
     public void setQuestion(String question) {
-        put("question", question);
+        put(QUESTION, question);
     }
 
     public int getAnswers(){
-        return getInt("answers");
+        return getInt(ANSWERS);
     }
 
-    //public int getRating() {return rating;}
-    //public void setUser(BloQueryUser user){this.user = user;}
-    //public BloQueryUser getUser(){return user;}
-    ////public void setRating(int rating) {this.rating = rating;}
-
     public ParseUser getQuestionOwner()  {
-        return getParseUser("questionOwner");
+        return getParseUser(QUESTION_OWNER);
     }
 
     public void setQuestionOwner(ParseUser user){
-        put("questionOwner", user);
+        put(QUESTION_OWNER, user);
     }
 
     public void setAnswers(int num){
-        put("answers", num);
+        put(ANSWERS, num);
     }
-
-
 
     public Question(){}
 }

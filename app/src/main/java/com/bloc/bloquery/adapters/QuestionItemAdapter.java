@@ -15,6 +15,7 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.models.BloQueryUser;
 import com.parse.models.Question;
 
 import java.lang.ref.WeakReference;
@@ -92,7 +93,7 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
                 e.printStackTrace();
             }
             userName.setText(name);
-            ParseFile file = (ParseFile) questionOwner.get("image");
+            ParseFile file = (ParseFile) questionOwner.get(BloQueryUser.IMAGE);
             file.getDataInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] bytes, ParseException e) {

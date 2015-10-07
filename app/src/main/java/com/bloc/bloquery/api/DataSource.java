@@ -106,9 +106,9 @@ public class DataSource {
         submitTask(new Runnable() {
             @Override
             public void run() {
-                ParseQuery<Answer> query = ParseQuery.getQuery("Answer");
-                query.whereEqualTo("question", question);
-                query.orderByDescending("votes");
+                ParseQuery<Answer> query = ParseQuery.getQuery(Answer.NAME);
+                query.whereEqualTo(Answer.QUESTION, question);
+                query.orderByDescending(Answer.VOTES);
                 query.setLimit(10);
                 query.findInBackground(new FindCallback<Answer>() {
                     public void done(List<Answer> answersList, ParseException e) {

@@ -13,6 +13,15 @@ import org.json.JSONArray;
 @ParseClassName("Answer")
 public class Answer extends ParseObject {
 
+    public static String QUESTION = "question";
+    public static String USERS_VOTED = "usersVoted";
+    public static String VOTES = "votes";
+    public static String ANSWER = "answer";
+    public static String ANSWER_OWNER = "answerOwner";
+    public static String PARENT = "parent";
+
+    public static String NAME = "Answer";
+
     private boolean isUpVote;
 
     public Answer(){}
@@ -22,41 +31,37 @@ public class Answer extends ParseObject {
         setQuestion(question);
         setAnswerOwner(answerOwner);
         setVotes(0);
-        put("usersVoted", new JSONArray());
+        initUsersVoted();
         setUpVote(false);
     }
 
     public String getAnswer() {
-        return getString("answer");
+        return getString(ANSWER);
     }
 
     public String getParent(){
-        return getString("parent");
+        return getString(PARENT);
     }
 
-    public String getParentUser() {
-        return getString("parentUser");
-    }
+    public int getVotes() { return getInt(VOTES);}
 
-    public int getVotes() { return getInt("votes");}
+    public JSONArray getUsersWhoVoted() { return getJSONArray(USERS_VOTED);}
 
-    public JSONArray getUsersWhoVoted() { return getJSONArray("usersVoted");}
-
-    public void setAnswer(String answer) {
-        put("answer", answer);
-    }
+    public void setAnswer(String answer) { put(ANSWER, answer); }
 
     public void setAnswerOwner(ParseUser user){
-        put("answerOwner", user);
+        put(ANSWER_OWNER, user);
     }
 
-    public ParseUser getAnswerOwner() { return getParseUser("answerOwner"); }
+    public ParseUser getAnswerOwner() { return getParseUser(ANSWER_OWNER); }
 
-    public void setQuestion(Question question) { put("question", question);}
+    public void setQuestion(Question question) { put(QUESTION, question);}
 
-    public void setVotes(int votes) {put("votes", votes);}
+    public void initUsersVoted() { put(USERS_VOTED, new JSONArray());}
 
-    public void setUserWhoVoted(BloQueryUser user) { put("usersVoted", user);}
+    public void setVotes(int votes) {put(VOTES, votes);}
+
+    public void addUserWhoVoted(BloQueryUser user) { put(USERS_VOTED, user);}
 
     public boolean isUpVote(){ return isUpVote;}
 

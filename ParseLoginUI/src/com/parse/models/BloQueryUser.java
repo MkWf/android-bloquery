@@ -8,33 +8,31 @@ import com.parse.ParseUser;
  */
 public class BloQueryUser extends ParseUser {
 
+    public static String DESCRIPTION = "description";
+    public static String IMAGE = "image";
+    public static String NAME = "name";
+
     public BloQueryUser(){
 
     }
 
     public BloQueryUser(String description){
-        setProfileDescription("description");
+        setProfileDescription(DESCRIPTION);
     }
 
     public String getProfileDescription(){
-        return getString("description");
+        return getString(DESCRIPTION);
     }
 
-    //public String getProfileImage() {return profileImage;}
-
     public void setProfileDescription(String profileDescription) {
-        put("description", profileDescription);
+        put(DESCRIPTION, profileDescription);
     }
 
     public void setProfileImage(ParseFile profileImage){
-        put("image", profileImage);
+        put(IMAGE, profileImage);
     }
 
     public String getUserName(){
-        return getString("name");
+        return getString(NAME);
     }
-
-   // public void setProfileImage(String profileImage) {
-      //  this.profileImage = profileImage;
-    //}
 }

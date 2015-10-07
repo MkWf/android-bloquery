@@ -17,6 +17,7 @@ import com.bloc.bloquery.R;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.models.BloQueryUser;
 
 /**
  * Created by Mark on 3/5/2015.
@@ -54,7 +55,7 @@ public class ProfileViewFragment extends Fragment {
         user.setText(BloQueryApplication.getSharedDataSource().getCurrentViewedUser().getUserName() + "'s Profile");
         description.setText(BloQueryApplication.getSharedDataSource().getCurrentViewedUser().getProfileDescription());
 
-        ParseFile image = (ParseFile) BloQueryApplication.getSharedDataSource().getCurrentViewedUser().get("image");
+        ParseFile image = (ParseFile) BloQueryApplication.getSharedDataSource().getCurrentViewedUser().get(BloQueryUser.IMAGE);
         image.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, ParseException e) {
