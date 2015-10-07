@@ -70,7 +70,13 @@ public class AnswersFragment extends Fragment implements AnswersItemAdapter.Dele
                 if(e == null){
                     //Fragment f = getFragmentManager().findFragmentByTag("Answer");
                     //AnswersFragment af = (AnswersFragment) f;
-                    answerItem.setVotes((Integer)mapObject.get("result"));
+                    int votes = (Integer)mapObject.get("result");
+                    if(answerItem.getVotes() > votes){
+                        answerItem.setUpVote(false);
+                    }else{
+                        answerItem.setUpVote(true);
+                    }
+                    answerItem.setVotes(votes);
                     notifyAdapter();
                 }
             }

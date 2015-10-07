@@ -81,6 +81,12 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
             answer.setText(answerItem.getAnswer());
             votes.setText(Integer.toString(answerItem.getVotes()) + " votes");
 
+            if(answerItem.isUpVote()){
+                votes.setTextColor(BloQueryApplication.getSharedInstance().getResources().getColor(R.color.green));
+            }else{
+                votes.setTextColor(BloQueryApplication.getSharedInstance().getResources().getColor(R.color.black));
+            }
+
             ParseFile file = (ParseFile) answerItem.getAnswerOwner().get("image");
             file.getDataInBackground(new GetDataCallback() {
                 @Override

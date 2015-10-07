@@ -13,6 +13,8 @@ import org.json.JSONArray;
 @ParseClassName("Answer")
 public class Answer extends ParseObject {
 
+    private boolean isUpVote;
+
     public Answer(){}
 
     public Answer(String answer, Question question, ParseUser answerOwner){
@@ -21,6 +23,7 @@ public class Answer extends ParseObject {
         setAnswerOwner(answerOwner);
         setVotes(0);
         put("usersVoted", new JSONArray());
+        setUpVote(false);
     }
 
     public String getAnswer() {
@@ -54,5 +57,9 @@ public class Answer extends ParseObject {
     public void setVotes(int votes) {put("votes", votes);}
 
     public void setUserWhoVoted(BloQueryUser user) { put("usersVoted", user);}
+
+    public boolean isUpVote(){ return isUpVote;}
+
+    public void setUpVote(boolean isUpVote) {this.isUpVote = isUpVote; }
 
 }
