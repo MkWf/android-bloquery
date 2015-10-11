@@ -293,7 +293,6 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         });
 
         Answer a = new Answer(inputText, clickedItem, BloQueryApplication.getSharedDataSource().getCurrentUser());
-        //a.put("parent", clickedItem.getObjectId());
         a.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
