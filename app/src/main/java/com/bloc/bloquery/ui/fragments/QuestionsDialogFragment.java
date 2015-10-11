@@ -34,8 +34,7 @@ public class QuestionsDialogFragment extends DialogFragment implements View.OnCl
         submit = (ImageButton) view.findViewById(R.id.fragment_questions_dialog_submit);
 
         question.requestFocus();
-        getDialog().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         submit.setOnClickListener(this);
         return view;

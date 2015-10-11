@@ -16,4 +16,6 @@
     <string name="answer_dialog_title">Your answer</string>
     <string name="questions_dialog_title">Query the community</string>
     <string name="refresh">Refresh</string>
+    <string name="save_description">Save Description</string>
+    <string name="edit_description">Edit Description</string>
 </resources>

@@ -93,14 +93,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     description.setVisibility(View.GONE);
                     editDescription.setVisibility(View.VISIBLE);
                     editDescription.requestFocus();
-                    descriptionButton.setText("Save Description");
+                    descriptionButton.setText(R.string.save_description);
                 }else{
                     BloQueryApplication.getSharedDataSource().getCurrentUser().setProfileDescription(editDescription.getText().toString());
                     BloQueryApplication.getSharedDataSource().getCurrentUser().saveInBackground();
                     description.setText(editDescription.getText());
                     description.setVisibility(View.VISIBLE);
                     editDescription.setVisibility(View.GONE);
-                    descriptionButton.setText("Edit Description");
+                    descriptionButton.setText(R.string.edit_description);
                 }
                 break;
             case R.id.fragment_profile_upload_image:
