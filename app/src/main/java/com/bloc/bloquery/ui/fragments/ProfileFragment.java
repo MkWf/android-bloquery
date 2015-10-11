@@ -136,23 +136,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
-
-
-
-
-        /*Uri selectedImage = data.getData();
-        String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-        Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                filePathColumn, null, null, null);
-        cursor.moveToFirst();
-
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String picturePath = cursor.getString(columnIndex);
-        cursor.close();
-
-        Bitmap bmp = BitmapFactory.decodeFile(picturePath);
-        userImage.setImageBitmap(bmp);*/
     }
 
     public byte[] readBytes(Uri uri) throws IOException {
