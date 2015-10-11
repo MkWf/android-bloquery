@@ -97,7 +97,6 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
                         int targetH = user.getHeight();
 
                         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-                        bmOptions.inJustDecodeBounds = true;
                         BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions);
 
                         int photoW = bmOptions.outWidth;
@@ -107,7 +106,6 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
 
                         bmOptions.inJustDecodeBounds = false;
                         bmOptions.inSampleSize = scaleFactor;
-                        //bmOptions.inPurgeable = true;
 
                         user.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions));
                     }

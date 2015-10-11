@@ -102,7 +102,6 @@ public class QuestionItemAdapter extends RecyclerView.Adapter<QuestionItemAdapte
                         int targetH = userImage.getHeight();
 
                         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-                        bmOptions.inJustDecodeBounds = true;
                         BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions);
 
                         int photoW = bmOptions.outWidth;
