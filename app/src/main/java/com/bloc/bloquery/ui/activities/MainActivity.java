@@ -287,8 +287,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
             @Override
             public void done(ParseException e) {
                 Fragment f = getFragmentManager().findFragmentByTag("Question");
-                QuestionsFragment qf = (QuestionsFragment) f;
-                qf.notifyAdapter();
+                ((QuestionsFragment) f).notifyAdapter();
             }
         });
 
@@ -300,8 +299,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                     @Override
                     public void onSuccess() {
                         Fragment f = getFragmentManager().findFragmentByTag("Answer");
-                        AnswersFragment af = (AnswersFragment) f;
-                        af.notifyAdapter();
+                        ((AnswersFragment) f).notifyAdapter();
                     }
 
                     @Override
