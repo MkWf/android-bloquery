@@ -68,8 +68,6 @@ public class AnswersFragment extends Fragment implements AnswersItemAdapter.Dele
             @Override
             public void done(Map<String, Object> mapObject, com.parse.ParseException e) {
                 if(e == null){
-                    //Fragment f = getFragmentManager().findFragmentByTag("Answer");
-                    //AnswersFragment af = (AnswersFragment) f;
                     int votes = (Integer)mapObject.get("result");
                     if(answerItem.getVotes() > votes){
                         answerItem.setUpVote(false);
@@ -81,46 +79,5 @@ public class AnswersFragment extends Fragment implements AnswersItemAdapter.Dele
                 }
             }
         });
-
-
-        /*ParseQuery<Answer> query = ParseQuery.getQuery(Answer.class);
-        query.whereEqualTo("objectId", answerItem.getObjectId());
-        query.whereContains("usersVoted", BloQueryApplication.getSharedDataSource().getCurrentUser().getObjectId());
-        query.findInBackground(new FindCallback<Void>() {
-            @Override
-            public void done(Void v, ParseException e) {
-                            //Fragment f = getFragmentManager().findFragmentByTag("Answer");
-                            //QuestionsFragment qf = (QuestionsFragment) f;
-                            //qf.notifyAdapter();
-                            notifyAdapter();
-                }
-                else{
-                    answerItem.setVotes(answerItem.getVotes() - 1);
-                    //answerItem.
-                    answerItem.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            //Fragment f = getFragmentManager().findFragmentByTag("Answer");
-                            //QuestionsFragment qf = (QuestionsFragment) f;
-                            //qf.notifyAdapter();
-                            notifyAdapter();
-                        }
-                    });
-                }
-
-            }
-        });
-
-        /*nswerItem.increment("votes");
-        answerItem.addUnique("usersVoted", BloQueryApplication.getSharedDataSource().getCurrentUser());
-        answerItem.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                //Fragment f = getFragmentManager().findFragmentByTag("Answer");
-                //QuestionsFragment qf = (QuestionsFragment) f;
-                //qf.notifyAdapter();
-                notifyAdapter();
-            }
-        });*/
     }
 }

@@ -286,8 +286,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
         clickedItem.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                Fragment f = getFragmentManager().findFragmentByTag("Question");
-                ((QuestionsFragment) f).notifyAdapter();
+                ((QuestionsFragment) getFragmentManager().findFragmentByTag("Question")).notifyAdapter();
             }
         });
 
@@ -298,8 +297,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                 BloQueryApplication.getSharedDataSource().fetchAnswers(clickedItem, new DataSource.Callback() {
                     @Override
                     public void onSuccess() {
-                        Fragment f = getFragmentManager().findFragmentByTag("Answer");
-                        ((AnswersFragment) f).notifyAdapter();
+                        ((AnswersFragment) getFragmentManager().findFragmentByTag("Answer")).notifyAdapter();
                     }
 
                     @Override
