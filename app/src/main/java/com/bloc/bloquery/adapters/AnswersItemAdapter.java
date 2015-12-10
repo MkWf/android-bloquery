@@ -88,29 +88,33 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
                 votes.setTextColor(BloQueryApplication.getSharedInstance().getResources().getColor(R.color.black));
             }
 
-            ParseFile file = (ParseFile) answerItem.getAnswerOwner().get(BloQueryUser.IMAGE);
-            file.getDataInBackground(new GetDataCallback() {
-                @Override
-                public void done(byte[] bytes, ParseException e) {
-                    if (e == null) {
-                        int targetW = user.getWidth();
-                        int targetH = user.getHeight();
+            try{
+                ParseFile file = (ParseFile) answerItem.getAnswerOwner().fetchIfNeeded().get(BloQueryUser.IMAGE);
+                file.getDataInBackground(new GetDataCallback() {
+                    @Override
+                    public void done(byte[] bytes, ParseException e) {
+                        if (e == null) {
+                            int targetW = user.getWidth();
+                            int targetH = user.getHeight();
 
-                        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-                        BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions);
+                            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                            BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions);
 
-                        int photoW = bmOptions.outWidth;
-                        int photoH = bmOptions.outHeight;
+                            int photoW = bmOptions.outWidth;
+                            int photoH = bmOptions.outHeight;
 
-                        int scaleFactor = Math.max(photoW / targetW, photoH / targetH);
+                            int scaleFactor = Math.max(photoW / targetW, photoH / targetH);
 
-                        bmOptions.inJustDecodeBounds = false;
-                        bmOptions.inSampleSize = scaleFactor;
+                            bmOptions.inJustDecodeBounds = false;
+                            bmOptions.inSampleSize = scaleFactor;
 
-                        user.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions));
+                            user.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bmOptions));
+                        }
                     }
-                }
-            });
+                });
+            }catch(ParseException e){
+
+            }
         }
 
         @Override
