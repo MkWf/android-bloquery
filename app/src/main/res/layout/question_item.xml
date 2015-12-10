@@ -3,22 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/question_item_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/material_blue_grey_950"
-        android:layout_marginBottom="20dp"/>
-
-    <TextView
-        android:id="@+id/queston_item_answers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@id/question_item_question"/>
-
     <ImageButton
         android:id="@+id/question_item_user_image"
         android:layout_width="50dp"
@@ -29,6 +13,17 @@
         android:contentDescription="@string/question_user" />
 
     <TextView
+        android:id="@+id/question_item_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/material_blue_grey_950"
+        android:layout_toLeftOf="@id/question_item_user_image"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
         android:id="@+id/question_item_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,12 +32,19 @@
         android:layout_marginRight="5dp"/>
 
     <View
-        android:id="@+id/point_item_horizontal_line"
+        android:id="@+id/question_item_horizontal_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/question_item_user_name"
         android:layout_marginTop="8dp"
         android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/queston_item_answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_above="@id/question_item_horizontal_line" />
 
 
 
