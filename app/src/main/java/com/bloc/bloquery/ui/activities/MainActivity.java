@@ -74,12 +74,12 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
     }
 
     @Override
-    public void onItemClicked(QuestionItemAdapter itemAdapter, Question questionItem) {
+    public void onItemClicked(QuestionItemAdapter itemAdapter, final Question questionItem) {
         clickedItem = questionItem;
         BloQueryApplication.getSharedDataSource().fetchAnswers(questionItem, new DataSource.Callback() {
             @Override
             public void onSuccess() {
-                AnswersFragment af = new AnswersFragment();
+                AnswersFragment af = AnswersFragment.newInstance(questionItem.getQuestionOwner().getUsername() + " asks : " + questionItem.getQuestion());
 
                 getFragmentManager()
                         .beginTransaction()
@@ -87,6 +87,7 @@ public class MainActivity extends ActionBarActivity implements QuestionsFragment
                         .addToBackStack(null)
                         .add(R.id.fl_activity_main, af, "Answer")
                         .commit();
+
                 answerIcons();
                 currentFragment = af;
             }

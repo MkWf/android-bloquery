@@ -64,6 +64,7 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
         ImageButton upvote;
         ImageButton user;
         Answer answerItem;
+        TextView name;
 
         public ItemAdapterViewHolder(View itemView) {
             super(itemView);
@@ -72,6 +73,7 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
             votes = (TextView) itemView.findViewById(R.id.answer_item_votes);
             upvote = (ImageButton) itemView.findViewById(R.id.answer_item_upvote);
             user = (ImageButton) itemView.findViewById(R.id.answer_item_user);
+            name = (TextView) itemView.findViewById(R.id.answer_item_name);
 
             upvote.setOnClickListener(this);
         }
@@ -81,6 +83,13 @@ public class AnswersItemAdapter extends RecyclerView.Adapter<AnswersItemAdapter.
 
             answer.setText(answerItem.getAnswer());
             votes.setText(Integer.toString(answerItem.getVotes()) + " votes");
+
+            try{
+                name.setText(answerItem.getAnswerOwner().fetchIfNeeded().getUsername());
+            }catch(ParseException e){
+
+            }
+
 
             if(answerItem.isUpVote()){
                 votes.setTextColor(BloQueryApplication.getSharedInstance().getResources().getColor(R.color.green));

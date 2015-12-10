@@ -23,13 +23,6 @@
         android:layout_marginRight="10dp"
         android:contentDescription="@string/user_icon"/>
 
-    <TextView
-        android:id="@+id/answer_item_votes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/answer_item_user"
-        android:layout_alignBottom="@id/answer_item_user"/>
-
     <ImageButton
         android:id="@+id/answer_item_upvote"
         android:layout_width="wrap_content"
@@ -42,13 +35,30 @@
         android:layout_marginRight="10dp"
         android:src="@mipmap/answer_item_upvote"/>
 
+    <TextView
+        android:id="@+id/answer_item_votes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/answer_item_user"
+        android:layout_alignBottom="@id/answer_item_user"/>
+
+    <TextView
+        android:id="@+id/answer_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="6dp"
+        android:layout_below="@id/answer_item_user" />
+
     <View
-        android:id="@+id/point_item_horizontal_line"
+        android:id="@+id/answer_item_horizontal_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/answer_item_upvote"
+        android:layout_below="@id/answer_item_name"
         android:layout_marginTop="8dp"
         android:background="@android:color/darker_gray"/>
+
+
 
 
 </RelativeLayout>

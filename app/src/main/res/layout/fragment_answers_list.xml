@@ -3,9 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/question_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FF000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"/>
+
+    <View
+        android:id="@+id/question_title_horizontal_line"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="4dp"
+        android:layout_marginBottom="6dp"
+        android:background="@android:color/darker_gray"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_fragment_answers"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
