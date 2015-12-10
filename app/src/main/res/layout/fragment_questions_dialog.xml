@@ -3,21 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:padding="10dp"
-        android:text="@string/questions_dialog_title" />
-
     <ImageButton
         android:id="@+id/fragment_questions_dialog_submit"
         android:src="@mipmap/fragment_answers_dialog_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/transparent"/>
 
     <EditText
         android:id="@+id/fragment_questions_dialog_question"

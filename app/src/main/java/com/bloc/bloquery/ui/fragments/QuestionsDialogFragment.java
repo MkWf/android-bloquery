@@ -35,7 +35,7 @@ public class QuestionsDialogFragment extends DialogFragment implements View.OnCl
 
         question.requestFocus();
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
+        getDialog().setTitle("Type your question");
         submit.setOnClickListener(this);
         return view;
     }

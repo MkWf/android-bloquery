@@ -38,6 +38,8 @@ public class AnswersDialogFragment extends DialogFragment implements View.OnClic
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
+        getDialog().setTitle("Type your answer");
+
         submit.setOnClickListener(this);
         return view;
     }
